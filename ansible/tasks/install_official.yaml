@@ -1,0 +1,6 @@
+- name: Install essential package {{ pkg }}
+  community.general.pacman:
+    name: "{{ pkg }}"
+    state: latest
+  become: true
+

@@ -1,0 +1,130 @@
+- hosts: localhost
+  vars:
+    target_user: "{{ lookup('env', 'USER') }}"
+    essential_packages:
+    - hyprland
+    - sddm
+    - uwsm
+    - layer-shell-qt
+    - waybar
+    - mako
+    - xdg-desktop-portal-hyprland
+    - wob
+    - wofi
+    - alacritty
+    - bitwarden
+    - brave
+    - smbclient
+    - zsh
+    - fastfetch
+    - fzf
+    - eza
+    - chafa
+    - ripgrep
+    - fuse2
+    - bluetui
+    - tealdeer
+    - nemo
+    - hyprpolkitagent
+    - ddcutil
+    - stow
+    user_packages:
+    - cachyos-gaming-applications
+    - discord
+    - spotify-launcher
+    - telegram-desktop
+    - firefoxpwa
+    - otf-commit-mono-nerd
+    aur_packages:
+    - visual-studio-code-bin
+    - vial-appimage
+    dotfiles:
+    - target_path: $HOME
+      become_bool: false
+      packages:
+      - hypr
+      - mako
+      - alacritty
+    - target_path: /etc
+      become_bool: true
+      packages:
+      - sddm
+
+  tasks:
+  - name: Enable no password sudo for current user
+    ansible.builtin.copy:
+      dest: "/etc/sudoers.d/100-{{ target_user }}"
+      content: "{{ target_user }} ALL=(ALL) NOPASSWD:ALL\n"
+      owner: root
+      group: root
+      mode: '0440'
+    become: true
+
+  - name: Update pacman cache and upgrade system
+    community.general.pacman:
+      update_cache: true
+      upgrade: true
+    become: true
+
+  - name: Install essential packages
+    include_tasks: tasks/install_official.yaml
+    loop: "{{ essential_packages }}"
+    loop_control:
+      loop_var: pkg
+
+  - name: Install user packages
+    include_tasks: tasks/install_official.yaml
+    loop: "{{ user_packages }}"
+    loop_control:
+      loop_var: pkg
+
+  - name: Update paru cache and upgrade system
+    ansible.builtin.shell: paru -Syu
+    become: true
+    become_user: "{{ target_user}}"
+
+  - name: Install AUR packages
+    include_tasks: tasks/install_aur.yaml
+    loop: "{{ aur_packages }}"
+    loop_control:
+      loop_var: pkg
+
+  - name: Stow dotfiles for before installing packages
+    include_tasks: tasks/stow_dotfile.yaml
+    loop: "{{ dotfiles | subelements('packages') }}"
+    loop_control:
+      loop_var: dotfile_package
+    vars:
+      target_path: "{{ dotfile_package.0.target_path }}"
+      become_bool: "{{ dotfile_package.0.become_bool }}"
+      package: "{{ dotfile_package.1 }}"
+
+  - name: Find all systemd-boot entry files
+    find:
+      paths: /boot/loader/entries
+      patterns: '*.conf'
+      file_type: file
+    register: boot_entries
+    become: true
+
+  - name: Include entry update task for each file
+    include_tasks: tasks/rotate_fbcon.yaml
+    loop: "{{ boot_entries.files }}"
+    loop_control:
+      loop_var: entry
+    vars:
+      entry_path: "{{ entry.path }}"
+
+
+  # TODO
+  # - Hyprland config
+  #   - Systemd services:
+  #     - waybar
+  #     - mako
+  # - Install Docker
+  # - Login Manager
+  # - Move Steam to SSD
+  # - Bootloader rotate
+  # - FirefoxPWA
+  #   - Move to SSD
+  # - Tekken 8 launch options: HOST_LC_ALL=en_PH.UTF-8 %command%

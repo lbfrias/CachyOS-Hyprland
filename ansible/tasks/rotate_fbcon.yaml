@@ -1,0 +1,27 @@
+- name: Check if options already contain desired parameters
+  shell: |
+    grep -E '^options .*splash quiet fbcon=rotate:2$' "{{ entry_path }}"
+  register: option_check
+  ignore_errors: true
+  become: true
+
+- name: Read the contents of the kernel config file
+  slurp:
+    src: "{{ entry_path }}"
+  register: kernel_file
+  when: option_check.rc != 0
+  become: true
+
+- name: Extract existing options from kernel config
+  set_fact:
+    existing_options: "{{ (kernel_file.content | b64decode).split('\n') | select('search', '^options ') | list | first }}"
+  when: option_check.rc != 0
+
+- name: Append kernel options if missing
+  lineinfile:
+    path: "{{ entry_path }}"
+    regexp: '^options .*'
+    line: "{{ existing_options | regex_search('^.*?splash') }} quiet fbcon=rotate:2"
+    backrefs: yes
+  when: option_check.rc != 0
+  become: true
