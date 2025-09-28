@@ -1,0 +1,25 @@
+- hosts: localhost
+  vars:
+    target_user: "{{ lookup('env', 'USER') }}"
+    dotfiles:
+    - target_path: $HOME
+      become_bool: false
+      packages:
+      - hypr
+      - mako
+      - alacritty
+    - target_path: /etc
+      become_bool: true
+      packages:
+      - sddm
+
+  tasks:
+  - name: Stow dotfiles for before installing packages
+    include_tasks: tasks/stow_dotfile.yaml
+    loop: "{{ dotfiles | subelements('packages') }}"
+    loop_control:
+      loop_var: dotfile_package
+    vars:
+      target_path: "{{ dotfile_package.0.target_path }}"
+      become_bool: "{{ dotfile_package.0.become_bool }}"
+      package: "{{ dotfile_package.1 }}"

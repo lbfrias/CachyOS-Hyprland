@@ -1,0 +1,16 @@
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfile.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: hyprland
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - hyprland
+  - uwsm
+  - xdg-desktop-portal-hyprland
+  - hyprpolkitagent
+  loop_control:
+    loop_var: package

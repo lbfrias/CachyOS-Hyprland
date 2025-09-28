@@ -2,13 +2,8 @@
   vars:
     target_user: "{{ lookup('env', 'USER') }}"
     essential_packages:
-    - hyprland
-    - sddm
-    - uwsm
-    - layer-shell-qt
     - waybar
     - mako
-    - xdg-desktop-portal-hyprland
     - wob
     - wofi
     - alacritty
@@ -25,11 +20,9 @@
     - bluetui
     - tealdeer
     - nemo
-    - hyprpolkitagent
     - ddcutil
     - stow
     user_packages:
-    - cachyos-gaming-applications
     - discord
     - spotify-launcher
     - telegram-desktop
@@ -42,7 +35,7 @@
     - target_path: $HOME
       become_bool: false
       packages:
-      - hypr
+      - hyprland
       - mako
       - alacritty
     - target_path: /etc
@@ -70,13 +63,13 @@
     include_tasks: tasks/install_official.yaml
     loop: "{{ essential_packages }}"
     loop_control:
-      loop_var: pkg
+      loop_var: package
 
   - name: Install user packages
     include_tasks: tasks/install_official.yaml
     loop: "{{ user_packages }}"
     loop_control:
-      loop_var: pkg
+      loop_var: package
 
   - name: Update paru cache and upgrade system
     ansible.builtin.shell: paru -Syu
@@ -87,17 +80,7 @@
     include_tasks: tasks/install_aur.yaml
     loop: "{{ aur_packages }}"
     loop_control:
-      loop_var: pkg
-
-  - name: Stow dotfiles for before installing packages
-    include_tasks: tasks/stow_dotfile.yaml
-    loop: "{{ dotfiles | subelements('packages') }}"
-    loop_control:
-      loop_var: dotfile_package
-    vars:
-      target_path: "{{ dotfile_package.0.target_path }}"
-      become_bool: "{{ dotfile_package.0.become_bool }}"
-      package: "{{ dotfile_package.1 }}"
+      loop_var: package
 
   - name: Find all systemd-boot entry files
     find:
@@ -115,16 +98,24 @@
     vars:
       entry_path: "{{ entry.path }}"
 
+  - name: Setup login manager
+    include_tasks: tasks/login_manager.yaml
+
+  - name: Setup Hyprland
+    include_tasks: tasks/hyprland.yaml
+
+  - name: Setup gaming apps
+    include_tasks: tasks/gaming.yaml
 
   # TODO
   # - Hyprland config
   #   - Systemd services:
   #     - waybar
   #     - mako
+  # - Login manager theme
   # - Install Docker
   # - Login Manager
-  # - Move Steam to SSD
-  # - Bootloader rotate
   # - FirefoxPWA
   #   - Move to SSD
   # - Tekken 8 launch options: HOST_LC_ALL=en_PH.UTF-8 %command%
+  # - add --folow-symlinks in ls alias for eza in .zshrc

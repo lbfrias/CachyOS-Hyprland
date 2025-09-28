@@ -1,0 +1,26 @@
+- name: Ensure directory /etc/sddm.conf.d exists
+  ansible.builtin.file:
+    path: /etc/sddm.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfile.yaml
+  vars:
+    target_path: /etc/sddm.conf.d
+    become_bool: true
+    package: sddm
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - sddm
+  - layer-shell-qt
+  - qt6-svg
+  - qt6-virtualkeyboard
+  - qt6-multimedia-ffmpeg
+  loop_control:
+    loop_var: package
