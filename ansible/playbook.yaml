@@ -3,31 +3,20 @@
     target_user: "{{ lookup('env', 'USER') }}"
     essential_packages:
     - waybar
-    - mako
     - wob
     - wofi
     - alacritty
     - bitwarden
     - brave
     - smbclient
-    - zsh
-    - fastfetch
-    - fzf
-    - eza
-    - chafa
-    - ripgrep
     - fuse2
     - bluetui
-    - tealdeer
     - nemo
     - ddcutil
     - stow
     user_packages:
     - discord
-    - spotify-launcher
     - telegram-desktop
-    - firefoxpwa
-    - otf-commit-mono-nerd
     aur_packages:
     - visual-studio-code-bin
     - vial-appimage
@@ -44,81 +33,90 @@
       - sddm
 
   tasks:
-  - name: Enable no password sudo for current user
-    ansible.builtin.copy:
-      dest: "/etc/sudoers.d/100-{{ target_user }}"
-      content: "{{ target_user }} ALL=(ALL) NOPASSWD:ALL\n"
-      owner: root
-      group: root
-      mode: '0440'
-    become: true
+  # - name: Enable no password sudo for current user
+  #   ansible.builtin.copy:
+  #     dest: "/etc/sudoers.d/100-{{ target_user }}"
+  #     content: "{{ target_user }} ALL=(ALL) NOPASSWD:ALL\n"
+  #     owner: root
+  #     group: root
+  #     mode: '0440'
+  #   become: true
 
-  - name: Update pacman cache and upgrade system
-    community.general.pacman:
-      update_cache: true
-      upgrade: true
-    become: true
+  # - name: Update pacman cache and upgrade system
+  #   community.general.pacman:
+  #     update_cache: true
+  #     upgrade: true
+  #   become: true
 
-  - name: Install essential packages
-    include_tasks: tasks/install_official.yaml
-    loop: "{{ essential_packages }}"
-    loop_control:
-      loop_var: package
+  # - name: Install essential packages
+  #   include_tasks: tasks/install_official.yaml
+  #   loop: "{{ essential_packages }}"
+  #   loop_control:
+  #     loop_var: package
 
-  - name: Install user packages
-    include_tasks: tasks/install_official.yaml
-    loop: "{{ user_packages }}"
-    loop_control:
-      loop_var: package
+  # - name: Install user packages
+  #   include_tasks: tasks/install_official.yaml
+  #   loop: "{{ user_packages }}"
+  #   loop_control:
+  #     loop_var: package
 
-  - name: Update paru cache and upgrade system
-    ansible.builtin.shell: paru -Syu
-    become: true
-    become_user: "{{ target_user}}"
+  # - name: Update paru cache and upgrade system
+  #   ansible.builtin.shell: paru -Syu
+  #   register: result
+  #   changed_when:
+  #   - result.rc == 0
+  #   - "'there is nothing to do' not in result.stdout"
+  #   become: true
+  #   become_user: "{{ target_user}}"
 
-  - name: Install AUR packages
-    include_tasks: tasks/install_aur.yaml
-    loop: "{{ aur_packages }}"
-    loop_control:
-      loop_var: package
+  # - name: Install AUR packages
+  #   include_tasks: tasks/install_aur.yaml
+  #   loop: "{{ aur_packages }}"
+  #   loop_control:
+  #     loop_var: package
 
-  - name: Find all systemd-boot entry files
-    find:
-      paths: /boot/loader/entries
-      patterns: '*.conf'
-      file_type: file
-    register: boot_entries
-    become: true
+  # - name: Find all systemd-boot entry files
+  #   find:
+  #     paths: /boot/loader/entries
+  #     patterns: '*.conf'
+  #     file_type: file
+  #   register: boot_entries
+  #   become: true
 
-  - name: Include entry update task for each file
-    include_tasks: tasks/rotate_fbcon.yaml
-    loop: "{{ boot_entries.files }}"
-    loop_control:
-      loop_var: entry
-    vars:
-      entry_path: "{{ entry.path }}"
+  # - name: Include entry update task for each file
+  #   include_tasks: tasks/rotate_fbcon.yaml
+  #   loop: "{{ boot_entries.files }}"
+  #   loop_control:
+  #     loop_var: entry
+  #   vars:
+  #     entry_path: "{{ entry.path }}"
 
-  - name: Setup login manager
-    include_tasks: tasks/login_manager.yaml
+  # - name: Setup login manager
+  #   include_tasks: tasks/login_manager.yaml
 
-  - name: Setup Hyprland
-    include_tasks: tasks/hyprland.yaml
+  # - name: Setup Hyprland
+  #   include_tasks: tasks/hyprland.yaml
 
-  - name: Setup gaming apps
-    include_tasks: tasks/gaming.yaml
+  # - name: Setup notification daemon
+  #   include_tasks: tasks/notification_daemon.yaml
 
-  - name: Setup spotify
-    include_tasks: tasks/spotify.yaml
+  - name: Setup zsh
+    include_tasks: tasks/zsh.yaml
+
+  # - name: Setup gaming apps
+  #   include_tasks: tasks/gaming.yaml
+
+  # - name: Setup Spotify
+  #   include_tasks: tasks/spotify.yaml
+
+  # - name: Setup FirefoxPWA and web apps
+  #   include_tasks: tasks/progressive_web_apps.yaml
 
   # TODO
   # - Hyprland config
   #   - Systemd services:
   #     - waybar
-  #     - mako
   # - Login manager theme
   # - Install Docker
-  # - Login Manager
-  # - FirefoxPWA
-  #   - Move to SSD (https://pwasforfirefox.filips.si/resources/installation-directories/#executables)
   # - Tekken 8 launch options: HOST_LC_ALL=en_PH.UTF-8 %command%
   # - add --folow-symlinks in ls alias for eza in .zshrc

@@ -17,7 +17,7 @@
     mode: "0755"
 
 - name: Stow dotfiles
-  include_tasks: tasks/stow_dotfile.yaml
+  include_tasks: tasks/stow_dotfiles.yaml
   vars:
     target_path: /etc
     become_bool: true

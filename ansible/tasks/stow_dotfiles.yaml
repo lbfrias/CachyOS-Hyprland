@@ -4,7 +4,11 @@
       cd ../dotfiles
       find {{ target_path }}/ -maxdepth 1 -name "$(ls -d {{ package }}/*)" -exec rm -rf {} +
       stow -t {{ target_path }} --verbose=2 {{ package }}
+  register: result
   when: become_bool
+  changed_when:
+  - result.rc == 0
+  - "'already points to' not in result.stderr"
   become: "{{ become_bool }}"
 
 - name: Install dotfiles for {{ package }} at {{ target_path }}
@@ -13,4 +17,8 @@
       cd ../dotfiles
       find {{ target_path }}/ -maxdepth 1 -name "$(ls -d {{ package }}/*)" -exec rm -rf {} +
       stow -t {{ target_path }} --verbose=2 {{ package }}
+  register: result
   when: not become_bool
+  changed_when:
+  - result.rc == 0
+  - "'already points to' not in result.stderr"

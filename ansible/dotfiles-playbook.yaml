@@ -15,7 +15,7 @@
 
   tasks:
   - name: Stow dotfiles for before installing packages
-    include_tasks: tasks/stow_dotfile.yaml
+    include_tasks: tasks/stow_dotfiles.yaml
     loop: "{{ dotfiles | subelements('packages') }}"
     loop_control:
       loop_var: dotfile_package

@@ -3,6 +3,7 @@
     grep -E '^options .*splash quiet fbcon=rotate:2$' "{{ entry_path }}"
   register: option_check
   ignore_errors: true
+  changed_when: false
   become: true
 
 - name: Read the contents of the kernel config file

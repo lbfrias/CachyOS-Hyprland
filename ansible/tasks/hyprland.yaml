@@ -1,5 +1,5 @@
 - name: Stow dotfiles
-  include_tasks: tasks/stow_dotfile.yaml
+  include_tasks: tasks/stow_dotfiles.yaml
   vars:
     target_path: $HOME
     become_bool: false
@@ -14,5 +14,8 @@
   - xdg-desktop-portal-gtk
   - hyprpolkitagent
   - gnome-themes-extra
+  - qt5-wayland
+  - qt6-wayland
+  - otf-commit-mono-nerd
   loop_control:
     loop_var: package

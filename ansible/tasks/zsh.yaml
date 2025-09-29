@@ -1,0 +1,57 @@
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - zsh
+  - fastfetch
+  - fzf
+  - eza
+  - chafa
+  - ripgrep
+  - tealdeer
+  loop_control:
+    loop_var: package
+
+- name: Install oh-my-zsh
+  ansible.builtin.shell:
+    cmd: |
+      rm -rf $HOME/.oh-my-zsh
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+      rm -rf $HOME/.oh-my-zsh/custom $HOME/.zshrc*
+
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: zsh
+  
+- name: Install powerlevel10k
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+    clone: yes
+    depth: 1
+  
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    clone: yes
+  
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/unixorn/fzf-zsh-plugin.git
+    dest: "$HOME/.oh-my-zsh/custom/plugins/fzf-zsh-plugin"
+    clone: yes
+    depth: 1
+  
+- name: Install fzf-tab
+  ansible.builtin.git:
+    repo: https://github.com/Aloxaf/fzf-tab
+    dest: "$HOME/.oh-my-zsh/custom/plugins/fzf-tab"
+    clone: yes
+
+- name: Change default shell to zsh
+  ansible.builtin.shell:
+    cmd: chsh -s /usr/bin/zsh {{ target_user }}
+  become: true
