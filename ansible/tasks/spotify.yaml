@@ -1,0 +1,29 @@
+- name: Prepare Spotify app directory
+  ansible.builtin.file:
+    path: /opt/spotify-launcher
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  become: true
+  
+- name: Link Spotify app directory
+  ansible.builtin.file:
+    src: /opt/spotify-launcher
+    dest: /home/{{ target_user }}/.local/share/spotify-launcher
+    state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfile.yaml
+  vars:
+    target_path: /etc
+    become_bool: true
+    package: spotify
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  vars:
+    package: spotify-launcher

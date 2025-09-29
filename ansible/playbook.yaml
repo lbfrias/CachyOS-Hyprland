@@ -107,6 +107,9 @@
   - name: Setup gaming apps
     include_tasks: tasks/gaming.yaml
 
+  - name: Setup spotify
+    include_tasks: tasks/spotify.yaml
+
   # TODO
   # - Hyprland config
   #   - Systemd services:
@@ -116,6 +119,6 @@
   # - Install Docker
   # - Login Manager
   # - FirefoxPWA
-  #   - Move to SSD
+  #   - Move to SSD (https://pwasforfirefox.filips.si/resources/installation-directories/#executables)
   # - Tekken 8 launch options: HOST_LC_ALL=en_PH.UTF-8 %command%
   # - add --folow-symlinks in ls alias for eza in .zshrc

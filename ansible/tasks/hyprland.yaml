@@ -11,6 +11,8 @@
   - hyprland
   - uwsm
   - xdg-desktop-portal-hyprland
+  - xdg-desktop-portal-gtk
   - hyprpolkitagent
+  - gnome-themes-extra
   loop_control:
     loop_var: package

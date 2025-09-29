@@ -1,18 +1,8 @@
-- name: Ensure directory /etc/sddm.conf.d exists
-  ansible.builtin.file:
-    path: /etc/sddm.conf.d
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
+- name: Copy dotfiles
+  ansible.builtin.copy:
+    src: ../dotfiles/sddm/sddm.conf.d
+    dest: /etc
   become: true
-
-- name: Stow dotfiles
-  include_tasks: tasks/stow_dotfile.yaml
-  vars:
-    target_path: /etc/sddm.conf.d
-    become_bool: true
-    package: sddm
 
 - name: Install essential packages
   include_tasks: tasks/install_official.yaml
@@ -24,3 +14,9 @@
   - qt6-multimedia-ffmpeg
   loop_control:
     loop_var: package
+
+- name: Enable systemd service
+  ansible.builtin.systemd_service:
+    name: sddm
+    enabled: true
+  become: true
