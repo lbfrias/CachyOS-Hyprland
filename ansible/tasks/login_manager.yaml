@@ -10,7 +10,6 @@
   - sddm
   - layer-shell-qt
   - qt6-svg
-  - qt6-virtualkeyboard
   - qt6-multimedia-ffmpeg
   loop_control:
     loop_var: package
