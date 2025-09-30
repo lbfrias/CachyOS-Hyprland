@@ -1,0 +1,35 @@
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - zsh
+  - fastfetch
+  - fzf
+  - eza
+  - chafa
+  - ripgrep
+  - tealdeer
+  loop_control:
+    loop_var: package
+
+- name: Install oh-my-zsh
+  ansible.builtin.shell:
+    cmd: |
+      rm -rf $HOME/.oh-my-zsh
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+      rm -rf $HOME/.oh-my-zsh/custom $HOME/.zshrc*
+
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: zsh
+
+- name: Change default shell to zsh
+  ansible.builtin.shell:
+    cmd: chsh -s /usr/bin/zsh {{ target_user }}
+  register: result
+  changed_when:
+  - result.rc == 0
+  - "'Shell not changed' not in result.stderr" 
+  become: true

@@ -1,0 +1,22 @@
+- name: Prepare FirefoxPWA directory
+  ansible.builtin.file:
+    path: /opt/firefoxpwa
+    state: directory
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+  become: true
+  
+- name: Link FirefoxPWA directory
+  ansible.builtin.file:
+    src: /opt/firefoxpwa
+    dest: /home/{{ target_user }}/.local/share/firefoxpwa
+    state: link
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  vars:
+    package: firefoxpwa

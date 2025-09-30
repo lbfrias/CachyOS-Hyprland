@@ -1,0 +1,18 @@
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: mako
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  vars:
+    package: mako
+
+- name: Enable systemd service
+  ansible.builtin.systemd_service:
+    name: mako
+    state: started
+    enabled: true
+    scope: user
