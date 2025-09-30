@@ -5,6 +5,13 @@
     become_bool: false
     package: hyprland
 
+- name: Stow wallpapers
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME/Pictures
+    become_bool: false
+    package: wallpapers
+
 - name: Install essential packages
   include_tasks: tasks/install_official.yaml
   loop:
@@ -16,6 +23,7 @@
   - gnome-themes-extra
   - qt5-wayland
   - qt6-wayland
+  - swaybg
   - otf-commit-mono-nerd
   loop_control:
     loop_var: package
