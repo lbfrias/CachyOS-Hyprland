@@ -1,0 +1,31 @@
+[colors.primary]
+background = "#655348" # soft walnut
+foreground = "#FFE9CB" # champagne
+
+[colors.cursor]
+text = "#332B29"       # background color (inverse of cursor)
+cursor = "#FFE9CB"     # champagne cursor (stands out well)
+
+[colors.selection]
+text = "#332B29"       # raisin black text inside selection
+background = "#FFD9A6" # light sand highlight (soft but clear)
+
+[colors.normal]
+black   = "#aa9b8a" # taupe brown
+red     = "#C3422D" # brick red
+green   = "#E0C08F" # warm sand
+yellow  = "#FF8A60" # coral
+blue    = "#D29B6E" # warm tan
+magenta = "#F2895C" # burnt orange
+cyan    = "#FFE2B8" # light champagne
+white   = "#FFF0DA" # soft off-white
+
+[colors.bright]
+black   = "#EAD5C0" # pale beige
+red     = "#FF7A42" # bright terracotta
+green   = "#FFD9A6" # light sand
+yellow  = "#FF6E30" # soft orange
+blue    = "#E6B07A" # golden tan
+magenta = "#FF8A60" # coral
+cyan    = "#FFF2DC" # pale champagne
+white   = "#FFFFFF" # pure white
