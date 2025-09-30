@@ -1,0 +1,31 @@
+[colors.primary]
+background = "#655348" # Soft Walnut (dark taupe brown)
+foreground = "#FFE9CB" # Champagne (soft cream)
+
+[colors.cursor]
+text = "#332B29"       # Raisin Black (inverse cursor text)
+cursor = "#FFE9CB"     # Champagne (cursor highlight)
+
+[colors.selection]
+text = "#332B29"       # Raisin Black (text inside selection)
+background = "#FFD9A6" # Light Sand (highlight)
+
+[colors.normal]
+black   = "#AA9B8A" # Stone Beige
+red     = "#FF5C00" # Neon Orange
+green   = "#E0C08F" # Warm Sand
+yellow  = "#FFC4AD" # Soft Coral
+blue    = "#D29B6E" # Warm Tan
+magenta = "#F2895C" # Burnt Orange
+cyan    = "#FFE2B8" # Champagne Sand
+white   = "#FFF0DA" # Soft Ivory
+
+[colors.bright]
+black   = "#EAD5C0" # Pale Beige
+red     = "#FF5C00" # Neon Orange (unchanged for brightness)
+green   = "#FFD9A6" # Light Sand
+yellow  = "#FF6E30" # Bright Orange
+blue    = "#E6B07A" # Golden Tan
+magenta = "#FF8A60" # Coral
+cyan    = "#FFF2DC" # Pale Champagne
+white   = "#FFFFFF" # Pure White
