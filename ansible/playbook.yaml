@@ -3,7 +3,6 @@
     target_user: "{{ lookup('env', 'USER') }}"
     essential_packages:
     - waybar
-    - wob
     - wofi
     - alacritty
     - bitwarden
@@ -20,17 +19,6 @@
     aur_packages:
     - visual-studio-code-bin
     - vial-appimage
-    dotfiles:
-    - target_path: $HOME
-      become_bool: false
-      packages:
-      - hyprland
-      - mako
-      - alacritty
-    - target_path: /etc
-      become_bool: true
-      packages:
-      - sddm
 
   tasks:
   - name: Enable no password sudo for current user
@@ -99,6 +87,9 @@
 
   - name: Setup notification daemon
     include_tasks: tasks/notification_daemon.yaml
+
+  - name: Setup overlay bar
+    include_tasks: tasks/overlay_bar.yaml
 
   - name: Setup zsh
     include_tasks: tasks/zsh.yaml
