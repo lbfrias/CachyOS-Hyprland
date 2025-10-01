@@ -4,7 +4,7 @@
     essential_packages:
     - waybar
     - wofi
-    - alacritty
+    - kitty
     - bitwarden
     - brave
     - smbclient
