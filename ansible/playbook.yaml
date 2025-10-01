@@ -4,7 +4,6 @@
     essential_packages:
     - waybar
     - wofi
-    - kitty
     - bitwarden
     - brave
     - smbclient
@@ -93,6 +92,9 @@
 
   - name: Setup zsh
     include_tasks: tasks/zsh.yaml
+
+  - name: Setup terminal
+    include_tasks: tasks/terminal.yaml
 
   - name: Setup gaming apps
     include_tasks: tasks/gaming.yaml
