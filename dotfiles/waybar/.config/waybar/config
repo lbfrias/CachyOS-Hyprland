@@ -1,0 +1,33 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": [
+        "hyprland/workspaces",
+    ],
+    "modules-center": [
+        "hyprland/window",
+    ],
+    "modules-right": [
+        "tray",
+    ],
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": " ",
+            "2": " ",
+            "3": " ",
+            "4": " ",
+            "5": " ",
+        },
+        "active-only": false,
+        "all-outputs": false,
+        "persistent-workspaces": {
+            "DP-1": [4, 5]
+        }
+    },
+    "tray": {
+        "expand": true,
+        "spacing": 5,
+    },
+}

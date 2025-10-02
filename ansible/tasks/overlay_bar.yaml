@@ -6,9 +6,9 @@
     package: wob
 
 - name: Install essential packages
-  include_tasks: tasks/install_official.yaml
+  include_tasks: tasks/install_aur.yaml
   vars:
-    package: wob
+    package: wob-git
 
 - name: Enable wob socket
   ansible.builtin.systemd_service:
