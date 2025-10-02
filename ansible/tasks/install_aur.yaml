@@ -1,12 +1,9 @@
-- name: Check if {{ package }} is already installed
-  ansible.builtin.shell: paru -Q {{ package }}
-  register: paru_check
-  ignore_errors: true
-  changed_when: false
-
 - name: Install AUR package {{ package }} via paru
   ansible.builtin.command: paru -S --needed --noconfirm --skipreview {{ package }}
+  register: result
   become: true
   become_user: "{{ target_user }}"
-  when: paru_check.rc != 0
+  changed_when:
+  - result.rc == 0
+  - "'there is nothing to do' not in result.stdout"
 

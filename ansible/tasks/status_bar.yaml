@@ -3,23 +3,16 @@
   vars:
     target_path: $HOME
     become_bool: false
-    package: wob
+    package: waybar
 
 - name: Install essential packages
-  include_tasks: tasks/install_aur.yaml
+  include_tasks: tasks/install_official.yaml
   vars:
-    package: wob-git
-
-- name: Enable wob socket
-  ansible.builtin.systemd_service:
-    name: wob.socket
-    state: started
-    enabled: true
-    scope: user
+    package: waybar
 
 - name: Enable systemd service
   ansible.builtin.systemd_service:
-    name: wob
+    name: waybar
     state: started
     enabled: true
     scope: user

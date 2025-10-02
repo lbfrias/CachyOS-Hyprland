@@ -1,0 +1,40 @@
+* {
+    font-family: "CommitMono Nerd Font Propo";
+    font-size: 11px;  /* Slightly smaller font size */
+    font-weight: 900;
+    margin: 0;
+    padding: 0;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    color: #FFE9CB;
+    border: none;
+    min-height: 0;
+    margin: 0.2em 0.3em 0.2em 0.3em;
+}
+
+#waybar {
+    background-color: rgba(20, 9, 0, 0.529);
+    padding: 3px 6px;  /* Adjusted padding to reduce height */
+}
+
+#workspaces button {
+    padding: 3px 5px;  /* Adjusted padding to reduce height */
+    margin: 3px 5px;    /* Reduced margin slightly */
+    border-radius: 6px;
+    background-color: #FF8A60;
+    transition: all 0.3s ease-in-out;
+    font-size: 13px;  /* Slightly smaller font size */
+}
+
+#workspaces button.active {
+    color: @foreground;
+    background: #FF5C00;
+}
+
+#workspaces button:hover {
+    background: #894126;
+}
+
+#workspaces button.urgent {
+    background-color: #FFE9CB;
+}

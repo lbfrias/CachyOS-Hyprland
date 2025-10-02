@@ -2,7 +2,6 @@
   vars:
     target_user: "{{ lookup('env', 'USER') }}"
     essential_packages:
-    - waybar
     - wofi
     - bitwarden
     - brave
@@ -11,7 +10,9 @@
     - bluetui
     - nemo
     - ddcutil
+    - hyprshot
     - stow
+    - libappindicator-gtk3
     user_packages:
     - discord
     - telegram-desktop
@@ -104,12 +105,3 @@
 
   - name: Setup FirefoxPWA and web apps
     include_tasks: tasks/progressive_web_apps.yaml
-
-  # TODO
-  # - Hyprland config
-  #   - Systemd services:
-  #     - waybar
-  # - Login manager theme
-  # - Install Docker
-  # - Tekken 8 launch options: HOST_LC_ALL=en_PH.UTF-8 %command%
-  # - add --folow-symlinks in ls alias for eza in .zshrc
