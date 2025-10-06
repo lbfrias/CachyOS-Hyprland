@@ -7,7 +7,7 @@ height=100
 max-icon-size=48
 default-timeout=5000
 anchor=top-center
-margin=20
+margin=10
 output=DP-1
 
 text-color=#FFE9CBff
