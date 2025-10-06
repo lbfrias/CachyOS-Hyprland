@@ -9,10 +9,14 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "pulseaudio",
+        "bluetooth",
         "tray",
-        "clock"
+        "clock",
+        "custom/power"
     ],
     "hyprland/window": {
+        "icon": true,
         "expand": true
     },
     "hyprland/workspaces": {
@@ -27,8 +31,48 @@
         "active-only": false,
         "all-outputs": false,
         "persistent-workspaces": {
-            "DP-1": [4, 5]
+            "DP-1": [
+                1,
+                2,
+                3
+            ],
+            "DP-2": [
+                5
+            ],
+            "DP-3": [
+                4
+            ]
         }
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-connected": "{icon} {num_connections}",
+        "format-on": "{icon}",
+        "format-off": "{icon}",
+        "format-disabled": "",
+        "format-icons": {
+            "off": "󰂲",
+            "on": "󰂯",
+            "connected": "󰂱"
+        },
+        "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-icons": {
+            "default": [
+                "",
+                ""
+            ],
+            "default-muted": "",
+            "headphone": "",
+            "headphone-muted": "󰟎"
+        },
+        "on-click": "pavucontrol"
     },
     "clock": {
         "interval": 1,
@@ -38,5 +82,17 @@
     "tray": {
         "expand": true,
         "spacing": 5
+    },
+    "custom/power": {
+        "format": "⏻ ",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
     }
 }

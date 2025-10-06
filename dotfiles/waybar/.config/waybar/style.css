@@ -1,16 +1,18 @@
 * {
     font-family: "CommitMono Nerd Font Propo";
+    font-size: 12px;
+    font-weight: 900;
+    border-radius: 1em;
 }
 
 window#waybar{
-    font-size: 12;
-    font-weight: 900;
     transition-property: background-color;
     transition-duration: 0.5s;
     color: #FFE9CB;
     border: none;
     padding: 0em;
     margin: 0em;
+    border-radius: 0em;
 }
 
 #waybar {
@@ -18,7 +20,6 @@ window#waybar{
 }
 
 #workspaces {
-    font-size: 12;
     background-color: rgba(20, 9, 0, 0.265);
     border-radius: 20em;
     border: none;
@@ -39,7 +40,7 @@ window#waybar{
 
 #workspaces button.active {
     margin: 0.5em;
-    padding: 0.5em 20em;
+    padding: 1em 20em;
     background: #FF5C00;
 }
 
@@ -51,11 +52,16 @@ window#waybar{
     background-color: #FFE9CB;
 }
 
-#tray {
-    font-size: 12;
+#clock {
+    margin: 1em
 }
 
-#clock {
-    font-size: 12;
-    margin: 1em
+#bluetooth {
+    margin: 1em;
+}
+
+menu {
+	color: #FFE9CB;
+	background: #332B29;
+    border: none;
 }

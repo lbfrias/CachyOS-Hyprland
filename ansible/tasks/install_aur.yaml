@@ -1,8 +1,8 @@
 - name: Install AUR package {{ package }} via paru
-  ansible.builtin.command: paru -S --needed --noconfirm --skipreview {{ package }}
+  ansible.builtin.command: paru -S --aur --needed --noconfirm --skipreview {{ package }}
   register: result
-  become: true
-  become_user: "{{ target_user }}"
+  # become: true
+  # become_user: "{{ target_user }}"
   changed_when:
   - result.rc == 0
   - "'there is nothing to do' not in result.stdout"

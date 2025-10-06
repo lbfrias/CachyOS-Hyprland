@@ -4,7 +4,7 @@
     essential_packages:
     - wofi
     - bitwarden
-    - brave
+    - brave-bin
     - smbclient
     - fuse2
     - bluetui
@@ -13,6 +13,7 @@
     - hyprshot
     - stow
     - libappindicator-gtk3
+    - nm-connection-editor
     user_packages:
     - discord
     - telegram-desktop
@@ -34,6 +35,7 @@
     community.general.pacman:
       update_cache: true
       upgrade: true
+      upgrade_extra_args: "--ignore brave-bin"
     become: true
 
   - name: Install essential packages
@@ -48,8 +50,8 @@
     loop_control:
       loop_var: package
 
-  - name: Update paru cache and upgrade system
-    ansible.builtin.shell: paru -Syu
+  - name: Update paru cache and upgrade syqstem
+    ansible.builtin.shell: paru -Sau
     register: result
     changed_when:
     - result.rc == 0
