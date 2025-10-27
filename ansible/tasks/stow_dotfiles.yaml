@@ -1,5 +1,5 @@
 - name: Install dotfiles for {{ package }} at {{ target_path }} (BECOME)
-  ansible.builtin.shell:
+  shell:
     cmd: |
       cd ../dotfiles
       find {{ target_path }}/ -maxdepth 1 -name "$(ls -d {{ package }}/*)" -exec rm -rf {} +
@@ -12,7 +12,7 @@
   become: "{{ become_bool }}"
 
 - name: Install dotfiles for {{ package }} at {{ target_path }}
-  ansible.builtin.shell:
+  shell:
     cmd: |
       cd ../dotfiles
       find {{ target_path }}/ -maxdepth 1 -name "$(ls -d {{ package }}/*)" -exec rm -rf {} +

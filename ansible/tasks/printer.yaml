@@ -1,21 +1,22 @@
-- name: Copy dotfiles
-  copy:
-    src: ../dotfiles/sddm/sddm.conf.d
-    dest: /etc
-  become: true
-
 - name: Install essential packages
   include_tasks: tasks/install_official.yaml
   loop:
-  - sddm
-  - layer-shell-qt
-  - qt6-svg
-  - qt6-multimedia-ffmpeg
+  - cups
+  - hplip
+  - pyqt5
+  - python-qt5-dbus
+  - sane
   loop_control:
     loop_var: package
+
+- name: Install essential packages
+  include_tasks: tasks/install_aur.yaml
+  vars:
+    package: xsane
 
 - name: Enable systemd service
   systemd_service:
     name: sddm
+    state: started
     enabled: true
-  become: true
+  become: cups

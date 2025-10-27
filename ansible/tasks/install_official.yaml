@@ -1,4 +1,4 @@
-- name: Install essential package {{ package }}
+- name: Install package {{ package }}
   community.general.pacman:
     name: "{{ package }}"
     state: latest

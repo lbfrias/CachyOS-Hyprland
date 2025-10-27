@@ -1,0 +1,26 @@
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - docker
+  loop_control:
+    loop_var: package
+
+- name: Ensure 'docker' group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+  become: true
+
+- name: Add user to 'docker' group
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    groups: docker
+    append: true
+  become: true
+
+- name: Enable systemd service
+  systemd_service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
