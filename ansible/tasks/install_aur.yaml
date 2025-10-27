@@ -1,5 +1,6 @@
 - name: Install AUR package {{ package }} via paru
-  ansible.builtin.command: paru -S --aur --needed --noconfirm --skipreview {{ package }}
+  shell:
+    cmd: paru -S --aur --needed --noconfirm --skipreview {{ package }}
   register: result
   # become: true
   # become_user: "{{ target_user }}"

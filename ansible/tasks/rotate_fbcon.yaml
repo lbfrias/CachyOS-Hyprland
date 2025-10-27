@@ -1,11 +1,11 @@
 - name: Check if options already contain desired parameters
-  shell: |
-    grep -E '^options .*splash quiet fbcon=rotate:2$' "{{ entry_path }}"
+  shell:
+    cmd: grep -E '^options .*splash quiet$' "{{ entry_path }}"
+    # cmd: grep -E '^options .*splash quiet fbcon=rotate:2$' "{{ entry_path }}"
   register: option_check
   ignore_errors: true
   changed_when: false
   become: true
-
 - name: Read the contents of the kernel config file
   slurp:
     src: "{{ entry_path }}"
@@ -22,7 +22,8 @@
   lineinfile:
     path: "{{ entry_path }}"
     regexp: '^options .*'
-    line: "{{ existing_options | regex_search('^.*?splash') }} quiet fbcon=rotate:2"
+    line: "{{ existing_options | regex_search('^.*?splash') }} quiet"
+    # line: "{{ existing_options | regex_search('^.*?splash') }} quiet fbcon=rotate:2"
     backrefs: yes
   when: option_check.rc != 0
-  become: true
+  become: true 

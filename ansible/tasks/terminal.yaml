@@ -9,3 +9,15 @@
   include_tasks: tasks/install_official.yaml
   vars:
     package: kitty
+
+- name: Install xdg-terminal-exec to be able to set default terminal
+  include_tasks: tasks/install_aur.yaml
+  vars:
+    package: xdg-terminal-exec
+
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: xdg-terminal-exec

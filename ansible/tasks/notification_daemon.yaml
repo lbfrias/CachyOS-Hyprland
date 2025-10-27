@@ -11,7 +11,7 @@
     package: mako
 
 - name: Enable systemd service
-  ansible.builtin.systemd_service:
+  systemd_service:
     name: mako
     state: started
     enabled: true

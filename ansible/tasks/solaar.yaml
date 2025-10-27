@@ -1,0 +1,17 @@
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: solaar
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  vars:
+    package: solaar
+
+- name: Copy udev rules
+  get_url:
+    url: https://raw.githubusercontent.com/pwr-Solaar/Solaar/master/rules.d-uinput/42-logitech-unify-permissions.rules
+    dest: /etc/udev/rules.d/
+  become: true

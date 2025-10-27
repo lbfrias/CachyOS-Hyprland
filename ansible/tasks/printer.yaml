@@ -1,0 +1,22 @@
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - cups
+  - hplip
+  - pyqt5
+  - python-qt5-dbus
+  - sane
+  loop_control:
+    loop_var: package
+
+- name: Install essential packages
+  include_tasks: tasks/install_aur.yaml
+  vars:
+    package: xsane
+
+- name: Enable systemd service
+  systemd_service:
+    name: sddm
+    state: started
+    enabled: true
+  become: cups

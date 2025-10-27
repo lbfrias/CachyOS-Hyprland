@@ -1,5 +1,5 @@
 - name: Prepare Steam app directory
-  ansible.builtin.file:
+  file:
     path: /opt/steamapp
     state: directory
     owner: "{{ target_user }}"
@@ -8,7 +8,7 @@
   become: true
   
 - name: Link Steam app directory
-  ansible.builtin.file:
+  file:
     src: /opt/steamapp
     dest: /home/{{ target_user }}/.steam
     state: link
@@ -17,7 +17,7 @@
     mode: "0755"
 
 - name: Prepare Steam userdata directory
-  ansible.builtin.file:
+  file:
     path: /opt/steamdata
     state: directory
     owner: "{{ target_user }}"
@@ -26,7 +26,7 @@
   become: true
   
 - name: Link Steam data directory
-  ansible.builtin.file:
+  file:
     src: /opt/steamdata
     dest: /home/{{ target_user }}/.local/share/Steam
     state: link

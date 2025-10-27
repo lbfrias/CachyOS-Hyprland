@@ -1,5 +1,5 @@
 - name: Prepare Spotify app directory
-  ansible.builtin.file:
+  file:
     path: /opt/spotify-launcher
     state: directory
     owner: "{{ target_user }}"
@@ -8,7 +8,7 @@
   become: true
   
 - name: Link Spotify app directory
-  ansible.builtin.file:
+  file:
     src: /opt/spotify-launcher
     dest: /home/{{ target_user }}/.local/share/spotify-launcher
     state: link

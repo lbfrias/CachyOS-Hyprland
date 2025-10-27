@@ -11,14 +11,14 @@
     package: wob-git
 
 - name: Enable wob socket
-  ansible.builtin.systemd_service:
+  systemd_service:
     name: wob.socket
     state: started
     enabled: true
     scope: user
 
 - name: Enable systemd service
-  ansible.builtin.systemd_service:
+  systemd_service:
     name: wob
     state: started
     enabled: true

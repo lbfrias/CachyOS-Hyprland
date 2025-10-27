@@ -9,21 +9,30 @@
     - fuse2
     - bluetui
     - nemo
+    - gvfs-smb
     - ddcutil
     - hyprshot
+    - bc
+    - downgrade
     - stow
     - libappindicator-gtk3
     - nm-connection-editor
+    - traceroute
+    - virt-manager
+    - cups
     user_packages:
     - discord
     - telegram-desktop
+    - solaar
     aur_packages:
     - visual-studio-code-bin
     - vial-appimage
+    - go-hass-agent-bin
+    - transgui-qt
 
   tasks:
   - name: Enable no password sudo for current user
-    ansible.builtin.copy:
+    copy:
       dest: "/etc/sudoers.d/100-{{ target_user }}"
       content: "{{ target_user }} ALL=(ALL) NOPASSWD:ALL\n"
       owner: root
@@ -35,7 +44,6 @@
     community.general.pacman:
       update_cache: true
       upgrade: true
-      upgrade_extra_args: "--ignore brave-bin" # Update this when Brave has a new release
     become: true
 
   - name: Install essential packages
@@ -50,8 +58,9 @@
     loop_control:
       loop_var: package
 
-  - name: Update paru cache and upgrade syqstem
-    ansible.builtin.shell: paru -Sau
+  - name: Update paru cache and upgrade system
+    shell:
+      cmd: paru -Sau
     register: result
     changed_when:
     - result.rc == 0
@@ -81,6 +90,16 @@
     vars:
       entry_path: "{{ entry.path }}"
 
+  - name: Install Lone Plymouth theme
+    shell:
+      cmd: |
+        cd /tmp
+        git clone --depth=1 https://github.com/lbfrias/plymouth-themes.git
+        cd plymouth-themes
+        cp -r pack_*/* /usr/share/plymouth/themes
+        plymouth-set-default-theme -R lone
+    become: true
+
   - name: Setup login manager
     include_tasks: tasks/login_manager.yaml
 
@@ -105,8 +124,14 @@
   - name: Setup gaming apps
     include_tasks: tasks/gaming.yaml
 
+  - name: Setup docker
+    include_tasks: tasks/docker.yaml
+
   - name: Setup Spotify
     include_tasks: tasks/spotify.yaml
 
   - name: Setup FirefoxPWA and web apps
     include_tasks: tasks/progressive_web_apps.yaml
+
+  - name: Setup Solaar (Logi Options+ alternative)
+    include_tasks: tasks/solaar.yaml

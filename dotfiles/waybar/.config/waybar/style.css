@@ -2,21 +2,54 @@
     font-family: "CommitMono Nerd Font Propo";
     font-size: 12px;
     font-weight: 900;
-    border-radius: 1em;
 }
 
-window#waybar{
-    transition-property: background-color;
-    transition-duration: 0.5s;
+window#waybar {
     color: #FFE9CB;
+    background-color: transparent;
     border: none;
-    padding: 0em;
-    margin: 0em;
-    border-radius: 0em;
 }
 
-#waybar {
+window#waybar>box {
+    border-radius: 20em;
+    margin: 15px 25px 15px 25px;
     background-color: rgba(20, 9, 0, 0.529);
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.45);
+}
+
+window.background.popup>decoration,
+window.background.popup>decoration:backdrop {
+    box-shadow: none;
+    background: transparent;
+}
+
+window.background.popup menu {
+    color: #FFE9CB;
+    background-color: #332B29;
+    border: none;
+    padding: 0;
+    border-radius: 1em;
+    box-shadow: none;
+}
+
+window.background.popup menuitem:hover {
+    background-color: #FF8A60;
+}
+
+window.background.popup menuitem:first-child,
+window.background.popup menuitem:first-child:hover {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+window.background.popup menuitem:last-child,
+window.background.popup menuitem:last-child:hover {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+window.background.popup separator {
+    background-color: #FFE9CB;
 }
 
 #workspaces {
@@ -52,16 +85,28 @@ window#waybar{
     background-color: #FFE9CB;
 }
 
-#clock {
+#clock, #bluetooth, #pulseaudio, #memory {
     margin: 1em
 }
 
-#bluetooth {
-    margin: 1em;
+#custom-mic {
+    font-size: 15px;
 }
 
-menu {
-	color: #FFE9CB;
-	background: #332B29;
-    border: none;
+#custom-mic.yes {
+    /* muted */
+    color: #FFE9CB;
+}
+
+#custom-mic.no {
+    /* unmuted */
+    color: #F75C1E;
+}
+
+#image.album-art {
+    margin-right: 1em;
+}
+
+#tray image {
+    margin: 0.4em;
 }

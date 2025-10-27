@@ -1,98 +1,260 @@
-{
-    "layer": "top",
-    "position": "top",
-    "height": 30,
-    "modules-left": [
-        "hyprland/workspaces"
-    ],
-    "modules-center": [
-        "hyprland/window"
-    ],
-    "modules-right": [
-        "pulseaudio",
-        "bluetooth",
-        "tray",
-        "clock",
-        "custom/power"
-    ],
-    "hyprland/window": {
-        "icon": true,
-        "expand": true
-    },
-    "hyprland/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": ""
+[
+    {
+        "output": "DP-1",
+        "layer": "top",
+        "position": "top",
+        "height": 30,
+        "margin": 0,
+        "reload_style_on_change": true,
+        "modules-left": [
+            "hyprland/workspaces",
+            "image#album-art",
+            "custom/mpris"
+        ],
+        "modules-center": [
+            "hyprland/window"
+        ],
+        "modules-right": [
+            "cpu",
+            "memory",
+            "network",
+            "pulseaudio",
+            "custom/mic",
+            "bluetooth",
+            "tray",
+            "clock",
+            "custom/power"
+        ],
+        "image#album-art": {
+            "exec": "~/.config/waybar/scripts/album-art.sh",
+            "interval": 1,
+            "size": 30,
+            "on-click": "playerctl play-pause"
         },
-        "active-only": false,
-        "all-outputs": false,
-        "persistent-workspaces": {
-            "DP-1": [
-                1,
-                2,
-                3
-            ],
-            "DP-2": [
-                5
-            ],
-            "DP-3": [
-                4
-            ]
+        "cpu": {
+            "interval": 10,
+            "format": " {usage}%"
+        },
+        "network": {
+            "interval": 1,
+            "format": "󰇚 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}"
+        },
+        "memory": {
+            "interval": 10,
+            "format": " {percentage}%"
+        },
+        "hyprland/window": {
+            "icon": true,
+            "expand": true,
+            "swap-icon-label": false
+        },
+        "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": ""
+            },
+            "active-only": false,
+            "all-outputs": false,
+            "persistent-workspaces": {
+                "DP-1": [
+                    1,
+                    2,
+                    3
+                ],
+                "DP-2": [
+                    5
+                ],
+                "DP-3": [
+                    4
+                ]
+            }
+        },
+        "bluetooth": {
+            "format": "{icon}",
+            "format-connected": "{icon} {num_connections}",
+            "format-on": "{icon}",
+            "format-off": "{icon}",
+            "format-disabled": "",
+            "format-icons": {
+                "off": "󰂲",
+                "on": "󰂯",
+                "connected": "󰂱"
+            },
+            "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
+            "tooltip-format": "{controller_alias}\t{controller_address}",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\t",
+            "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+        },
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-icons": {
+                "default": [
+                    "",
+                    "",
+                    ""
+                ],
+                "default-muted": "",
+                "headphone": "",
+                "headphone-muted": "󰟎"
+            },
+            "on-click": "pavucontrol"
+        },
+        "custom/mic": {
+            "exec": "~/.config/waybar/scripts/mic-mute.sh",
+            "return-type": "json",
+            "format": "{}",
+            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        },
+        "clock": {
+            "interval": 1,
+            "format": "{:%a %b %d %H:%M:%S}",
+            "tooltip": false
+        },
+        "tray": {
+            "expand": true
+        },
+        "custom/power": {
+            "format": "⏻ ",
+            "tooltip": false,
+            "menu": "on-click",
+            "menu-file": "~/.config/waybar/power_menu.xml",
+            "menu-actions": {
+                "shutdown": "shutdown now",
+                "reboot": "reboot",
+                "suspend": "systemctl suspend",
+                "hibernate": "systemctl hibernate"
+            }
+        },
+        "custom/mpris": {
+            "format": "{}",
+            "exec": "~/.config/waybar/scripts/mpris-scroll.sh 0.2 0",
+            "return-type": "json",
+            "interval": 0,
+            "on-click": "playerctl play-pause"
         }
     },
-    "bluetooth": {
-        "format": "{icon}",
-        "format-connected": "{icon} {num_connections}",
-        "format-on": "{icon}",
-        "format-off": "{icon}",
-        "format-disabled": "",
-        "format-icons": {
-            "off": "󰂲",
-            "on": "󰂯",
-            "connected": "󰂱"
+    {
+        "output": [
+            "DP-2",
+            "DP-3"
+        ],
+        "layer": "top",
+        "position": "top",
+        "height": 30,
+        "margin": 0,
+        "reload_style_on_change": true,
+        "modules-left": [
+            "hyprland/workspaces",
+            "image#album-art",
+            "custom/mpris"
+        ],
+        "modules-center": [
+            "hyprland/window"
+        ],
+        "modules-right": [
+            "pulseaudio",
+            "custom/mic",
+            "bluetooth",
+            "tray",
+            "clock",
+            "custom/power"
+        ],
+        "hyprland/window": {
+            "icon": true,
+            "expand": false,
+            "format": "{class}",
+            "swap-icon-label": false
         },
-        "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
-    },
-    "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-icons": {
-            "default": [
-                "",
-                ""
-            ],
-            "default-muted": "",
-            "headphone": "",
-            "headphone-muted": "󰟎"
+        "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": ""
+            },
+            "active-only": false,
+            "all-outputs": false,
+            "persistent-workspaces": {
+                "DP-1": [
+                    1,
+                    2,
+                    3
+                ],
+                "DP-2": [
+                    5
+                ],
+                "DP-3": [
+                    4
+                ]
+            }
         },
-        "on-click": "pavucontrol"
-    },
-    "clock": {
-        "interval": 1,
-        "format": "{:%a %b %d %H:%M:%S}",
-        "tooltip": false
-    },
-    "tray": {
-        "expand": true,
-        "spacing": 5
-    },
-    "custom/power": {
-        "format": "⏻ ",
-        "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "~/.config/waybar/power_menu.xml",
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
+        "image#album-art": {
+            "exec": "~/.config/waybar/scripts/album-art.sh",
+            "interval": 1,
+            "size": 30,
+            "on-click": "playerctl play-pause"
+        },
+        "bluetooth": {
+            "format": "{icon}",
+            "format-connected": "{icon} {num_connections}",
+            "format-on": "{icon}",
+            "format-off": "{icon}",
+            "format-disabled": "",
+            "format-icons": {
+                "off": "󰂲",
+                "on": "󰂯",
+                "connected": "󰂱"
+            },
+            "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
+            "tooltip-format": "{controller_alias}\t{controller_address}",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\t",
+            "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+        },
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-icons": {
+                "default": [
+                    "",
+                    ""
+                ],
+                "default-muted": "",
+                "headphone": "",
+                "headphone-muted": "󰟎"
+            },
+            "on-click": "pavucontrol"
+        },
+        "custom/mic": {
+            "exec": "~/.config/waybar/scripts/mic-mute.sh",
+            "return-type": "json",
+            "format": "{}",
+            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        },
+        "clock": {
+            "interval": 1,
+            "format": "{:%a %b %d %H:%M:%S}",
+            "tooltip": false
+        },
+        "tray": {
+            "expand": true
+        },
+        "custom/power": {
+            "format": "⏻ ",
+            "tooltip": false,
+            "menu": "on-click",
+            "menu-file": "~/.config/waybar/power_menu.xml",
+            "menu-actions": {
+                "shutdown": "shutdown now",
+                "reboot": "reboot",
+                "suspend": "systemctl suspend",
+                "hibernate": "systemctl hibernate"
+            }
+        },
+        "custom/mpris": {
+            "format": "{}",
+            "exec": "~/.config/waybar/scripts/mpris-scroll.sh 0.15 30",
+            "return-type": "json",
+            "interval": 0,
+            "on-click": "playerctl play-pause"
         }
     }
-}
+]

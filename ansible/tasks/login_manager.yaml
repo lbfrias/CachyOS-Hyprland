@@ -1,5 +1,5 @@
 - name: Copy dotfiles
-  ansible.builtin.copy:
+  copy:
     src: ../dotfiles/sddm/sddm.conf.d
     dest: /etc
   become: true
@@ -15,7 +15,7 @@
     loop_var: package
 
 - name: Enable systemd service
-  ansible.builtin.systemd_service:
+  systemd_service:
     name: sddm
     enabled: true
   become: true
