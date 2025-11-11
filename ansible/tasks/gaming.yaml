@@ -36,5 +36,8 @@
 
 - name: Install essential packages
   include_tasks: tasks/install_official.yaml
-  vars:
-    package: cachyos-gaming-applications
+  loop:
+  - cachyos-gaming-applications
+  - protonup-qt
+  loop_control:
+    loop_var: package
