@@ -83,7 +83,7 @@
     become: true
 
   - name: Include entry update task for each file
-    include_tasks: tasks/rotate_fbcon.yaml
+    include_tasks: tasks/silent_boot.yaml
     loop: "{{ boot_entries.files }}"
     loop_control:
       loop_var: entry
