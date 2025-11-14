@@ -2,7 +2,7 @@
   vars:
     target_user: "{{ lookup('env', 'USER') }}"
     essential_packages:
-    - wofi
+    - rofi
     - bitwarden
     - brave-bin
     - smbclient
