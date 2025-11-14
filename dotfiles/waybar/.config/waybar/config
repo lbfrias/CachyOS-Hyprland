@@ -62,10 +62,10 @@
                     3
                 ],
                 "DP-2": [
-                    5
+                    2000
                 ],
                 "DP-3": [
-                    4
+                    1000
                 ]
             }
         },
@@ -123,6 +123,7 @@
                 "shutdown": "shutdown now",
                 "reboot": "reboot",
                 "suspend": "systemctl suspend",
+                "logout": "loginctl kill-session $XDG_SESSION_ID",
                 "hibernate": "systemctl hibernate"
             }
         },
@@ -180,10 +181,10 @@
                     3
                 ],
                 "DP-2": [
-                    5
+                    2000
                 ],
                 "DP-3": [
-                    4
+                    1000
                 ]
             }
         },
