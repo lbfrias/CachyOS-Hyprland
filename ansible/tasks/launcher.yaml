@@ -1,0 +1,15 @@
+- name: Stow dotfiles
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: rofi
+
+- name: Install essential packages
+  include_tasks: tasks/install_official.yaml
+  loop:
+  - rofi
+  - rofi-calc
+  - rofi-emoji
+  loop_control:
+    loop_var: package

@@ -1,0 +1,6 @@
+configuration {
+    modi: "calc,emoji,window";
+    show-icons: true;
+    drun-display-format: "{name}";
+    drun-match-fields: "name,exec,keywords";
+}
