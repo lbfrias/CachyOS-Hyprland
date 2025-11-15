@@ -115,6 +115,9 @@
   - name: Setup status bar
     include_tasks: tasks/status_bar.yaml
 
+  - name: Setup launcher
+    include_tasks: tasks/launcher.yaml
+
   - name: Setup zsh
     include_tasks: tasks/zsh.yaml
 
