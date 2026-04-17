@@ -9,10 +9,3 @@
   include_tasks: tasks/install_official.yaml
   vars:
     package: mako
-
-- name: Enable systemd service
-  systemd_service:
-    name: mako
-    state: started
-    enabled: true
-    scope: user

@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 
-while true; do
-    clear
-    # Get the default source (microphone)
+print_status() {
     SOURCE=$(pactl get-default-source)
-
-    # Check mute status
     MUTED=$(pactl get-source-mute "$SOURCE" | awk '{print $2}')
+    SOURCE_NAME=$(pactl list sources | grep -A 15 "$SOURCE" | grep 'Description:' | awk -F'Description: ' '{print $2}')
 
     if [ "$MUTED" = "yes" ]; then
-        ICON=""   # mic mute icon (Font Awesome)
+        ICON=""
         COLOR="#ff5555"
         TEXT="Muted"
     else
-        ICON=""   # mic active icon
+        ICON=""
         COLOR="#50fa7b"
         TEXT="On"
     fi
 
-    # Output JSON for Waybar
-    echo "{\"text\": \"$ICON\", \"tooltip\": \"Mic: $TEXT\", \"class\": \"$MUTED\", \"color\": \"$COLOR\"}"
-    sleep 0.2
+    echo "{\"text\":\"$ICON\",\"tooltip\":\"$SOURCE_NAME\nMic: $TEXT\",\"class\":\"$MUTED\",\"color\":\"$COLOR\"}"
+}
+
+print_status
+pactl subscribe | grep --line-buffered "source" | while read -r _; do
+    print_status
 done

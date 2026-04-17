@@ -16,7 +16,7 @@
 
 - name: Enable systemd service
   systemd_service:
-    name: sddm
+    name: cups
     state: started
     enabled: true
   become: cups

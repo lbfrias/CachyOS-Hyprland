@@ -7,7 +7,11 @@
   - eza
   - chafa
   - ripgrep
+  - fd
   - tealdeer
+  - bat
+  - bat-extras
+  - git-delta
   loop_control:
     loop_var: package
 

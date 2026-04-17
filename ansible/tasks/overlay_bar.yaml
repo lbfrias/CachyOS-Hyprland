@@ -9,17 +9,3 @@
   include_tasks: tasks/install_aur.yaml
   vars:
     package: wob-git
-
-- name: Enable wob socket
-  systemd_service:
-    name: wob.socket
-    state: started
-    enabled: true
-    scope: user
-
-- name: Enable systemd service
-  systemd_service:
-    name: wob
-    state: started
-    enabled: true
-    scope: user

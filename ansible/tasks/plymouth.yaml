@@ -1,0 +1,9 @@
+- name: Install Lone Plymouth theme
+  shell:
+    cmd: |
+      cd /tmp
+      git clone --depth=1 https://github.com/lbfrias/plymouth-themes.git
+      cd plymouth-themes
+      cp -r pack_*/* /usr/share/plymouth/themes
+      plymouth-set-default-theme -R lone
+  become: true

@@ -1,0 +1,7 @@
+@-moz-document url('chrome://browser/content/browser.xhtml') {
+  
+  #navigator-toolbox {
+    display: none !important;
+  }
+
+}
