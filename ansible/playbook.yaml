@@ -24,11 +24,13 @@
     - discord
     - telegram-desktop
     - solaar
+    - udiskie
     aur_packages:
     - visual-studio-code-bin
     - vial-appimage
     - go-hass-agent-bin
     - transgui-qt
+    - calcure
 
   tasks:
   - name: Enable no password sudo for current user
@@ -90,18 +92,11 @@
     vars:
       entry_path: "{{ entry.path }}"
 
-  - name: Install Lone Plymouth theme
-    shell:
-      cmd: |
-        cd /tmp
-        git clone --depth=1 https://github.com/lbfrias/plymouth-themes.git
-        cd plymouth-themes
-        cp -r pack_*/* /usr/share/plymouth/themes
-        plymouth-set-default-theme -R lone
-    become: true
+  - name: Setup Plymouth
+    include_tasks: tasks/plymouth.yaml
 
-  - name: Setup login manager
-    include_tasks: tasks/login_manager.yaml
+  # - name: Setup login manager
+  #   include_tasks: tasks/login_manager.yaml
 
   - name: Setup Hyprland
     include_tasks: tasks/hyprland.yaml
@@ -120,6 +115,12 @@
 
   - name: Setup zsh
     include_tasks: tasks/zsh.yaml
+
+  - name: Setup git
+    include_tasks: tasks/git.yaml
+
+  - name: Setup Neovim
+    include_tasks: tasks/neovim.yaml
 
   - name: Setup terminal
     include_tasks: tasks/terminal.yaml

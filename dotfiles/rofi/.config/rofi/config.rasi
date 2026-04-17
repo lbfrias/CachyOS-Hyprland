@@ -1,5 +1,5 @@
 configuration {
-    modi: "calc,emoji,window";
+    modi: "calc,emoji,window,run";
     show-icons: true;
     drun-display-format: "{name}";
     drun-match-fields: "name,exec,keywords";

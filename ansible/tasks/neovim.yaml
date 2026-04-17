@@ -3,9 +3,9 @@
   vars:
     target_path: $HOME
     become_bool: false
-    package: wob
+    package: neovim
 
 - name: Install essential packages
-  include_tasks: tasks/install_aur.yaml
+  include_tasks: tasks/install_official.yaml
   vars:
-    package: wob-git
+    package: neovim

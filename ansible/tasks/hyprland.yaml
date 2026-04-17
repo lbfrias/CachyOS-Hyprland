@@ -25,12 +25,44 @@
   - qt6-wayland
   - swaybg
   - otf-commit-mono-nerd
+  - hyprlock
   loop_control:
     loop_var: package
 
-- name: Enable systemd service
-  systemd_service:
-    name: hyprpolkitagent
-    state: started
+- name: Create getty override directory for TTY1 autologin
+  ansible.builtin.file:
+    path: /etc/systemd/system/getty@tty1.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+
+- name: Configure TTY1 autologin
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/usr/bin/agetty --autologin {{ target_user }} --skip-login --noissue %I $TERM
+      TTYVTDisallocate=no
+  become: true
+  
+- name: Reload systemd
+  ansible.builtin.command: systemctl daemon-reexec
+  become: true
+
+- name: Ensure system boots to graphical target
+  ansible.builtin.systemd:
+    name: graphical.target
     enabled: true
-    scope: user
+  become: true
+
+- name: Enable lingering for user services
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ target_user }}
+  changed_when: false
+  become: true

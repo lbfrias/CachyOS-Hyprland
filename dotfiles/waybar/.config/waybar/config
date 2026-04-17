@@ -74,13 +74,14 @@
             "format-connected": "{icon} {num_connections}",
             "format-on": "{icon}",
             "format-off": "{icon}",
-            "format-disabled": "",
+            "format-disabled": "{icon}",
             "format-icons": {
+                "disabled": "󰂲",
                 "off": "󰂲",
                 "on": "󰂯",
                 "connected": "󰂱"
             },
-            "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
+            "on-click": "(pgrep -i blueman-manager && pkill -i blueman-manager) || blueman-manager",
             "tooltip-format": "{controller_alias}\t{controller_address}",
             "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
             "tooltip-format-enumerate-connected": "{device_alias}\t",
@@ -123,7 +124,7 @@
                 "shutdown": "shutdown now",
                 "reboot": "reboot",
                 "suspend": "systemctl suspend",
-                "logout": "loginctl kill-session $XDG_SESSION_ID",
+                "lock": "hyprlock",
                 "hibernate": "systemctl hibernate"
             }
         },
@@ -199,13 +200,14 @@
             "format-connected": "{icon} {num_connections}",
             "format-on": "{icon}",
             "format-off": "{icon}",
-            "format-disabled": "",
+            "format-disabled": "{icon}",
             "format-icons": {
+                "disabled": "󰂲",
                 "off": "󰂲",
                 "on": "󰂯",
                 "connected": "󰂱"
             },
-            "on-click": "(pgrep ^bluetui$ && pkill bluetui) || kitty -T bluetui bluetui",
+            "on-click": "(pgrep -i blueman-manager && pkill -i blueman-manager) || blueman-manager",
             "tooltip-format": "{controller_alias}\t{controller_address}",
             "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
             "tooltip-format-enumerate-connected": "{device_alias}\t",
@@ -247,6 +249,7 @@
                 "shutdown": "shutdown now",
                 "reboot": "reboot",
                 "suspend": "systemctl suspend",
+                "lock": "hyprlock",
                 "hibernate": "systemctl hibernate"
             }
         },
