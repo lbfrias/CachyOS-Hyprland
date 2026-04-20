@@ -2,5 +2,5 @@
 	path = dotfiles/zsh
 	url = git@github.com:lbfrias/zsh.git
 [submodule "dotfiles/neovim"]
-	path = dotfiles/nvim
+	path = dotfiles/neovim
 	url = git@github.com:lbfrias/neovim.git

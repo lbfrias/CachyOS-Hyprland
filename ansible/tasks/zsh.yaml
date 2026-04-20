@@ -29,6 +29,13 @@
     become_bool: false
     package: zsh
 
+- name: Stow machine specific zsh configuration
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: zsh-local
+
 - name: Change default shell to zsh
   shell:
     cmd: chsh -s /usr/bin/zsh {{ target_user }}
