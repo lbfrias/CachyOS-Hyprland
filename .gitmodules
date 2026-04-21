@@ -4,3 +4,6 @@
 [submodule "dotfiles/neovim"]
 	path = dotfiles/neovim
 	url = git@github.com:lbfrias/neovim.git
+[submodule "dotfiles/kitty"]
+	path = dotfiles/kitty
+	url = git@github.com:lbfrias/kitty.git
