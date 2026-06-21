@@ -1,6 +1,24 @@
+// configuration {
+//     modi: "calc,emoji,window,run";
+//     show-icons: true;
+//     drun-display-format: "{name}";
+//     drun-match-fields: "name,exec,keywords";
+// }
+
 configuration {
-    modi: "calc,emoji,window,run";
-    show-icons: true;
-    drun-display-format: "{name}";
-    drun-match-fields: "name,exec,keywords";
+    modi:                   "drun,calc,emoji,window,run";
+    show-icons:             true;
+    icon-theme:             "Papirus-Dark";
+    drun-display-format:    "{name}";
+    drun-match-fields:      "name,exec,keywords";
+    display-drun:           "󱗼 Apps";
+    display-calc:           "󰃬 Calculator";
+    display-emoji:          "☺ Emoji";
+    display-window:         "󱂬 Windows";
+    display-run:            "󰆍 Run";
+    font:                   "CommitMono Nerd Font Propo 12";
+    prompt:                 "CommitMono Nerd Font Propo 14";
+    kb-cancel:              "Escape";
 }
+
+@theme "~/.config/rofi/theme.rasi"

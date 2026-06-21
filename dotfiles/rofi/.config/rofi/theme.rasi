@@ -1,0 +1,119 @@
+* {
+    bg0:     rgba(38, 38, 38, 0.75);
+    bg1:     rgba(51, 43, 41, 0.85);
+    bg2:     rgba(61, 35, 24, 0.90);
+    border:  #F75C1E;
+    accent:  #F75C1E;
+    fg0:     #FFE9CB;
+    fg1:     #a08070;
+    fg2:     #5a4a42;
+    background-color: transparent;
+    text-color:       @fg0;
+}
+
+window {
+    background-color: @bg0;
+    border:           2px solid;
+    border-color:     @border;
+    border-radius:    16px;
+    width:            800px;
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ inputbar, mode-switcher, listview, message ];
+    spacing:          0;
+}
+
+inputbar {
+    background-color: @bg1;
+    border-radius:    16px 16px 0 0;
+    padding:          12px 16px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @border;
+    font:             "CommitMono Nerd Font Propo 14";
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @fg0;
+    placeholder:      "Search...";
+    placeholder-color: @fg2;
+    cursor:           text;
+}
+
+mode-switcher {
+    background-color: rgba(46, 35, 32, 0.85);
+    border:           0 0 1px 0;
+    border-color:     #3d2d28;
+    spacing:          0;
+    padding:          0;
+}
+
+button {
+    background-color: transparent;
+    text-color:       @fg2;
+    padding:          7px 16px;
+    border:           0 0 2px 0;
+    border-color:     transparent;
+    font:             "CommitMono Nerd Font Propo 11";
+}
+
+button selected {
+    background-color: transparent;
+    text-color:       @accent;
+    border-color:     @accent;
+}
+
+listview {
+    background-color: transparent;
+    padding:          8px;
+    spacing:          2px;
+    lines:            8;
+    scrollbar:        false;
+}
+
+element {
+    background-color: transparent;
+    border-radius:    10px;
+    padding:          9px 12px;
+    spacing:          12px;
+    orientation:      horizontal;
+}
+
+element selected.normal {
+    background-color: @bg2;
+}
+
+element-icon {
+    size:             28px;
+    border-radius:    8px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       @fg1;
+    vertical-align:   0.5;
+}
+
+element selected.normal element-text {
+    text-color: @fg0;
+}
+
+message {
+    background-color: rgba(46, 35, 32, 0.85);
+    border:           1px 0 0 0;
+    border-color:     #3d2d28;
+    padding:          6px 16px;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @fg2;
+    font:             "CommitMono Nerd Font Propo 10";
+}

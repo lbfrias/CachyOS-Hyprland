@@ -7,3 +7,6 @@
 [submodule "dotfiles/kitty"]
 	path = dotfiles/kitty
 	url = git@github.com:lbfrias/kitty.git
+[submodule "dotfiles/gitconfig"]
+	path = dotfiles/gitconfig
+	url = git@github.com:lbfrias/gitconfig.git
