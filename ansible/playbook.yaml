@@ -8,7 +8,7 @@
     - smbclient
     - fuse2
     - bluetui
-    - nemo
+    - pcmanfm
     - gvfs-smb
     - ddcutil
     - hyprshot
@@ -20,6 +20,7 @@
     - traceroute
     - virt-manager
     - cups
+    - loupe 
     user_packages:
     - discord
     - telegram-desktop

@@ -45,9 +45,24 @@ hl.config({
     input = {
         follow_mouse = 2,
         float_switch_override_focus = 0,
-        sensitivity = 0.89,
+        sensitivity = 0.7,
         accel_profile = "flat",
-        numlock_by_default = true
+        numlock_by_default = true,
+        touchpad = {
+            natural_scroll = true,
+            scroll_factor = 0.2,
+            clickfinger_behavior = true,
+            drag_3fg = 1,
+            tap_and_drag = true,
+        }
+    },
+
+    gestures = {
+        workspace_swipe_distance = 600,
+        workspace_swipe_cancel_ratio = 0.3,
+        workspace_swipe_direction_lock = false,
+        workspace_swipe_forever = true,
+        workspace_swipe_min_speed_to_force = 10,
     },
 
     binds = {
@@ -62,12 +77,13 @@ hl.config({
         font_family = "CommitMono Nerd Font Propo",
         splash_font_family = "CommitMono Nerd Font Propo",
         disable_hyprland_logo = true,
+        middle_click_paste = false,
         col = {
             splash = colors.giantsorange,
         },
         background_color = colors.chestnut,
         enable_swallow = true,
-        swallow_regex = "^(cachy-browser|firefox|nautilus|nemo|thunar|btrfs-assistant.)$",
+        swallow_regex = "^(kitty|pcmanfm)$",
         focus_on_activate = true,
         vrr = 2
     },
