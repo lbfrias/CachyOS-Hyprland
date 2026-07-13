@@ -1,6 +1,6 @@
 local M = {}
 
-M.filemanager = "thunar"
+M.filemanager = "pcmanfm"
 M.applauncher = [[pkill rofi || rofi -show drun -sorting-method "fzf"]]
 M.windowswitcher = [[rofi -show window -sorting-method "fzf"]]
 M.emojiselector = [[rofi -show emoji -sorting-method "fzf"]]
