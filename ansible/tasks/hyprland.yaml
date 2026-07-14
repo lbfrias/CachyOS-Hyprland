@@ -12,6 +12,20 @@
     become_bool: false
     package: wallpapers
 
+- name: Stow hyprland-preview-share-picker config
+  include_tasks: tasks/stow_dotfiles.yaml
+  vars:
+    target_path: $HOME
+    become_bool: false
+    package: hyprland-preview-share-picker
+
+- name: Install essential AUR packages
+  include_tasks: tasks/install_aur.yaml
+  loop:
+  - hyprland-preview-share-picker-git
+  loop_control:
+    loop_var: package
+
 - name: Install essential packages
   include_tasks: tasks/install_official.yaml
   loop:
@@ -26,6 +40,13 @@
   - swaybg
   - otf-commit-mono-nerd
   - hyprlock
+  loop_control:
+    loop_var: package
+
+- name: Install essential AUR packages
+  include_tasks: tasks/install_aur.yaml
+  loop:
+  - hyprland-preview-share-picker-git
   loop_control:
     loop_var: package
 

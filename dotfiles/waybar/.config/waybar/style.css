@@ -1,20 +1,41 @@
-* {
+/* * { */
+/*     font-family: "CommitMono Nerd Font Propo"; */
+/*     font-size: 12px; */
+/*     font-weight: 900; */
+/* } */
+
+.main {
     font-family: "CommitMono Nerd Font Propo";
     font-size: 12px;
     font-weight: 900;
+}
+
+.secondary {
+    font-family: "CommitMono Nerd Font Propo";
+    font-size: 11px;
+    font-weight: 700;
 }
 
 window#waybar {
     color: #FFE9CB;
     background-color: transparent;
     border: none;
+    margin: 0;
 }
 
 window#waybar>box {
-    border-radius: 20em;
-    margin: 15px 25px 15px 25px;
-    background-color: rgba(20, 9, 0, 0.529);
+    border-radius: 50em;
+    background-color: rgba(20, 9, 0, 0.6);
+    padding: 0.25em 1em;
     box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.45);
+}
+
+window.main#waybar>box {
+    margin: 1em 100em;
+}
+
+window.secondary#waybar>box {
+    margin: 1em 15em;
 }
 
 window.background.popup>decoration,
@@ -23,7 +44,10 @@ window.background.popup>decoration:backdrop {
     background: transparent;
 }
 
-window.background.popup menu {
+tooltip, window.background.popup menu {
+    font-family: "CommitMono Nerd Font Propo";
+    font-size: 11.5px;
+    font-weight: 800;
     color: #FFE9CB;
     background-color: #332B29;
     border: none;
@@ -52,28 +76,25 @@ window.background.popup separator {
     background-color: #FFE9CB;
 }
 
-#workspaces {
-    background-color: rgba(20, 9, 0, 0.265);
-    border-radius: 20em;
-    border: none;
-    margin: 0.3em 0.5em;
-    padding: 0.2em;
-    color: transparent;
+tooltip {
+    opacity: 0.9;
 }
 
 #workspaces button {
-    font-size: 0.1em;
-    margin: 0.5em;
-    padding: 1em 4.5em;
-    border-radius: 20em;
+    font-size: 1em;
+    margin: 0.4em 0.25em;
+    padding: 0;
+    min-width: 1.8em;
+    min-height: 1.8em;
+    border-radius: 50%;
     background-color: #FF8A60;
     transition: all 0.1s ease-in-out;
     border: none;
 }
 
 #workspaces button.active {
-    margin: 0.5em;
-    padding: 1em 20em;
+    min-width: 4em;
+    border-radius: 50em;
     background: #FF5C00;
 }
 
@@ -82,11 +103,42 @@ window.background.popup separator {
 }
 
 #workspaces button.urgent {
+    color: #F75C1e;
     background-color: #FFE9CB;
 }
 
-#clock, #bluetooth, #pulseaudio, #memory {
-    margin: 1em
+#workspaces,
+#hyprland-window,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#bluetooth,
+#clock,
+#tray,
+#custom-mic,
+#custom-power,
+#custom-mpris,
+#image {
+    margin: 0.2em 0.2em;
+    padding: 0.2em 1em;
+    color: #FFE9CB;
+    background-color: rgba(20, 9, 0, 0.6);
+    border: 0.15em solid rgba(255, 138, 96, 0.5);
+    border-radius: 1em;
+    /* box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.45); */
+}
+
+window.background.popup menu {
+
+}
+
+#pulseaudio.source {
+    color: #F75C1e;
+}
+
+#pulseaudio.source-muted {
+    color: #FFE9CB;
 }
 
 #custom-mic {
@@ -110,3 +162,4 @@ window.background.popup separator {
 #tray image {
     margin: 0.4em;
 }
+
