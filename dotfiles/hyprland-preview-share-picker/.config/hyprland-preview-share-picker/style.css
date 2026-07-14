@@ -1,0 +1,154 @@
+/* ~/.config/hyprland-preview-share-picker/theme.css */
+* {
+    all: unset;
+    font-family: CommitMono Nerd Font Propo, monospace;
+    color: #FFE9CB; /* champagne */
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* ── Window ── */
+.window {
+    border-radius: 8px;
+    background-color: #262626;
+    border: solid 2px #894126;
+    margin: 2px;
+}
+
+/* ── Tabs ── */
+tabs {
+    padding: 0.5rem 1rem;
+    background-color: #262626;
+    border-bottom: solid 1px #894126;
+}
+
+tabs > tab {
+    margin-right: 1.25rem;
+    padding: 0.25rem 0;
+}
+
+/* Default state */
+tab label,
+tab .tab-label {
+  color: #8a7060;
+  transition: color 0.2s ease;
+}
+
+/* Selected tab - border on the tab node itself, not the label */
+tab:checked {
+  border-bottom: 2px solid #F75C1E;
+}
+
+tab:checked label,
+tab:checked .tab-label {
+  color: #F75C1E;
+}
+
+tab:not(:checked):hover label,
+tab:not(:checked):hover .tab-label {
+  color: #FFE9CB;
+}
+
+tab:focus label,
+tab:focus .tab-label {
+  color: #FFE9CB;
+}
+
+/* ── Pages ── */
+.page {
+    padding: 1rem;
+    background-color: #262626;
+}
+
+/* ── Cards ── */
+flowboxchild > .card,
+button > .card {
+    transition: all 0.2s ease;
+    border: solid 2px #332B29;
+    border-radius: 6px;
+    background-color: #332B29;
+    padding: 5px;
+}
+
+flowboxchild:active > .card,
+flowboxchild:selected > .card,
+button:active > .card,
+button:selected > .card,
+button:focus > .card {
+    border: solid 2px #F75C1E;
+    background-color: #3d2e2b;
+}
+
+/* ── Image & label inside card ── */
+.image {
+    border-radius: 5px;
+}
+
+.image-label {
+    font-size: 12px;
+    padding: 0.25rem;
+    color: #FFE9CB;
+}
+
+/* ── Region button ── */
+.region-button {
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    background-color: #F75C1E;
+    color: #262626;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.region-button:not(:disabled):hover,
+.region-button:not(:disabled):focus {
+    background-color: #894126;
+    color: #FFE9CB;
+}
+
+.region-button:disabled {
+    background-color: #4a3830;
+    color: #7a6a60;
+}
+
+/* ── Restore button & checkbox ── */
+.restore-button {
+    padding: 0.25rem 0.75rem;
+    color: #FFE9CB;
+}
+
+.restore-button:focus,
+.restore-button:hover {
+    color: #F75C1E;
+}
+
+check {
+    min-width: 16px;
+    min-height: 16px;
+    border: solid 2px #894126;
+    border-radius: 3px;
+    background-color: #332B29;
+    margin-right: 0.5rem;
+}
+
+check:checked {
+    background-color: #F75C1E;
+    border-color: #F75C1E;
+}
+
+check:checked indicator {
+    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+    color: #262626;
+    min-width: 12px;
+    min-height: 12px;
+}
+
+checkbutton {
+    spacing: 6px;
+    color: #FFE9CB;
+}
+
+checkbutton:hover,
+checkbutton:focus {
+    color: #F75C1E;
+}
