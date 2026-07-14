@@ -1,73 +1,58 @@
 [
     {
         "output": "DP-1",
+        "name": "main",
         "layer": "top",
         "position": "top",
         "height": 30,
+        "width": 0,
         "margin": 0,
         "reload_style_on_change": true,
-        "modules-left": [
-            "hyprland/workspaces",
-            "image#album-art",
-            "custom/mpris"
-        ],
         "modules-center": [
-            "hyprland/window"
-        ],
-        "modules-right": [
-            "cpu",
-            "memory",
-            "network",
-            "pulseaudio",
-            "custom/mic",
-            "bluetooth",
+            "hyprland/workspaces",
+            "hyprland/workspaces#special",
             "tray",
+            "pulseaudio",
+            "pulseaudio#source",
+            "bluetooth",
             "clock",
-            "custom/power"
+            "custom/power",
         ],
-        "image#album-art": {
-            "exec": "~/.config/waybar/scripts/album-art.sh",
-            "interval": 1,
-            "size": 30,
-            "on-click": "playerctl play-pause"
-        },
-        "cpu": {
-            "interval": 10,
-            "format": " {usage}%"
-        },
-        "network": {
-            "interval": 1,
-            "format": "󰇚 {bandwidthDownBytes}\n󰕒 {bandwidthUpBytes}"
-        },
-        "memory": {
-            "interval": 10,
-            "format": " {percentage}%"
-        },
-        "hyprland/window": {
-            "icon": true,
-            "expand": true,
-            "swap-icon-label": false
-        },
         "hyprland/workspaces": {
-            "format": "{icon}",
-            "format-icons": {
-                "default": ""
-            },
+            "format": "{name}",
             "active-only": false,
             "all-outputs": false,
             "persistent-workspaces": {
                 "DP-1": [
-                    1,
-                    2,
-                    3
+                    1,2,3
                 ],
                 "DP-2": [
-                    2000
+                    "name:chat"
                 ],
                 "DP-3": [
-                    1000
+                    "name:homeassistant"
                 ]
             }
+        },
+        "hyprland/workspaces#special": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": "",
+                "spotify": "",
+                "steam": "",
+                "game": "󰊴"
+            },
+            "active-only": false,
+            "all-outputs": false,
+            "show-special": true,
+            "ignore-workspaces": [
+                "\\d+"
+            ]
+        },
+        "clock": {
+            "interval": 1,
+            "format": "{:%a %b %d %H:%M:%S}",
+            "tooltip": false
         },
         "bluetooth": {
             "format": "{icon}",
@@ -99,24 +84,21 @@
                 "headphone": "",
                 "headphone-muted": "󰟎"
             },
-            "on-click": "pavucontrol"
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+            "on-click-right": "pavucontrol -t 3"
         },
-        "custom/mic": {
-            "exec": "~/.config/waybar/scripts/mic-mute.sh",
-            "return-type": "json",
-            "format": "{}",
-            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        },
-        "clock": {
-            "interval": 1,
-            "format": "{:%a %b %d %H:%M:%S}",
-            "tooltip": false
-        },
-        "tray": {
-            "expand": true
+        "pulseaudio#source": {
+            "format": "{format_source}",
+            "format-source": "",
+            "format-source-muted": "",
+            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+            "on-click-right": "pavucontrol -t 4",
+            "target": "source",
+            "tooltip-format": "{source_desc}"
+
         },
         "custom/power": {
-            "format": "⏻ ",
+            "format": "⏻",
             "tooltip": false,
             "menu": "on-click",
             "menu-file": "~/.config/waybar/power_menu.xml",
@@ -128,72 +110,66 @@
                 "hibernate": "systemctl hibernate"
             }
         },
-        "custom/mpris": {
-            "format": "{}",
-            "exec": "~/.config/waybar/scripts/mpris-scroll.sh 0.2 0",
-            "return-type": "json",
-            "interval": 0,
-            "on-click": "playerctl play-pause"
-        }
     },
     {
         "output": [
             "DP-2",
-            "DP-3"
+            "DP-3",
         ],
+        "name": "secondary",
         "layer": "top",
         "position": "top",
         "height": 30,
+        "width": 0,
         "margin": 0,
         "reload_style_on_change": true,
-        "modules-left": [
-            "hyprland/workspaces",
-            "image#album-art",
-            "custom/mpris"
-        ],
         "modules-center": [
-            "hyprland/window"
-        ],
-        "modules-right": [
-            "pulseaudio",
-            "custom/mic",
-            "bluetooth",
+            "hyprland/workspaces",
+            "hyprland/workspaces#special",
             "tray",
+            "pulseaudio",
+            "pulseaudio#source",
+            "bluetooth",
             "clock",
-            "custom/power"
+            "custom/power",
         ],
         "hyprland/window": {
             "icon": true,
-            "expand": false,
-            "format": "{class}",
+            "expand": true,
             "swap-icon-label": false
         },
         "hyprland/workspaces": {
             "format": "{icon}",
             "format-icons": {
-                "default": ""
+                "homeassistant": "󰟐",
+                "chat": "󰭻",
             },
             "active-only": false,
             "all-outputs": false,
             "persistent-workspaces": {
                 "DP-1": [
-                    1,
-                    2,
-                    3
-                ],
-                "DP-2": [
-                    2000
-                ],
-                "DP-3": [
-                    1000
+                    1
                 ]
             }
         },
-        "image#album-art": {
-            "exec": "~/.config/waybar/scripts/album-art.sh",
+        "hyprland/workspaces#special": {
+            "format": "{icon}",
+            "format-icons": {
+                "spotify": "",
+                "steam": "",
+                "game": "󰊴"
+            },
+            "active-only": true,
+            "all-outputs": true,
+            "show-special": true,
+            "ignore-workspaces": [
+                "^(chat|homeassistant|\\d)$"
+            ]
+        },
+        "clock": {
             "interval": 1,
-            "size": 30,
-            "on-click": "playerctl play-pause"
+            "format": "{:%a %b %d %H:%M:%S}",
+            "tooltip": false
         },
         "bluetooth": {
             "format": "{icon}",
@@ -217,6 +193,7 @@
             "format": "{icon} {volume}%",
             "format-icons": {
                 "default": [
+                    "",
                     "",
                     ""
                 ],
@@ -224,24 +201,21 @@
                 "headphone": "",
                 "headphone-muted": "󰟎"
             },
-            "on-click": "pavucontrol"
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+            "on-click-right": "pavucontrol -t 3"
         },
-        "custom/mic": {
-            "exec": "~/.config/waybar/scripts/mic-mute.sh",
-            "return-type": "json",
-            "format": "{}",
-            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        },
-        "clock": {
-            "interval": 1,
-            "format": "{:%a %b %d %H:%M:%S}",
-            "tooltip": false
-        },
-        "tray": {
-            "expand": true
+        "pulseaudio#source": {
+            "format": "{format_source}",
+            "format-source": "",
+            "format-source-muted": "",
+            "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+            "on-click-right": "pavucontrol -t 4",
+            "target": "source",
+            "tooltip-format": "{source_desc}"
+
         },
         "custom/power": {
-            "format": "⏻ ",
+            "format": "⏻",
             "tooltip": false,
             "menu": "on-click",
             "menu-file": "~/.config/waybar/power_menu.xml",
@@ -253,12 +227,5 @@
                 "hibernate": "systemctl hibernate"
             }
         },
-        "custom/mpris": {
-            "format": "{}",
-            "exec": "~/.config/waybar/scripts/mpris-scroll.sh 0.15 30",
-            "return-type": "json",
-            "interval": 0,
-            "on-click": "playerctl play-pause"
-        }
     }
 ]
