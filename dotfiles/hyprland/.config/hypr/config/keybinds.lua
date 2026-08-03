@@ -60,6 +60,7 @@ hl.bind("ALT + XF86MonBrightnessDown", cmd(defaults.brightnessScript .. [[ down 
 
 ---------- Other System Control ----------
 hl.bind("SUPER + L", cmd("hyprlock"), { description = "Locks the screen" })
+hl.bind("SUPER + SHIFT + F", function() SecondaryWaybar.toggle() end, {description = "Toggle secondary waybars"})
 hl.bind("SUPER + O", cmd("pkill -9 waybar; waybar"), { description = "Restarts waybar" })
 
 ---------- Window Control and Navigation ----------
@@ -90,8 +91,8 @@ hl.bind("SUPER + 7", dsp.focus({ workspace = 7 }), { description = "Switch to wo
 hl.bind("SUPER + 8", dsp.focus({ workspace = 8 }), { description = "Switch to workspace 8" })
 hl.bind("SUPER + 9", dsp.focus({ workspace = 9 }), { description = "Switch to workspace 9" })
 hl.bind("SUPER + 0", dsp.focus({ workspace = 10 }), { description = "Switch to workspace 10" })
-hl.bind("SUPER + A", dsp.focus({ monitor = "DP-3" }), { description = "Switch to left monitor" })
-hl.bind("SUPER + D", dsp.focus({ monitor = "DP-2" }), { description = "Switch to right monitor" })
+hl.bind("SUPER + A", dsp.focus({ workspace = "name:homeassistant" }), { description = "Switch to left monitor" })
+hl.bind("SUPER + D", dsp.focus({ workspace = "name:chat" }), { description = "Switch to right monitor" })
 hl.bind("SUPER + S", dsp.workspace.toggle_special("spotify"))
 hl.bind("SUPER + T", dsp.workspace.toggle_special("steam"))
 hl.bind("SUPER + G", dsp.workspace.toggle_special("game"))

@@ -6,6 +6,6 @@
     package: waybar
 
 - name: Install essential packages
-  include_tasks: tasks/install_official.yaml
+  include_tasks: tasks/install_aur.yaml
   vars:
-    package: waybar
+    package: waybar-git

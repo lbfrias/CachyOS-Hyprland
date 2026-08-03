@@ -3,12 +3,6 @@ local colors = require("config/colors")
 hl.config({
     general = {
         gaps_in = 10,
-        gaps_out = {
-            top = 5,
-            bottom = 20,
-            left = 25,
-            right = 25
-        },
         border_size = 5,
         col = {
             active_border =  colors.giantsorange,
@@ -45,10 +39,10 @@ hl.config({
     input = {
         follow_mouse = 2,
         float_switch_override_focus = 0,
-        sensitivity = 0.7,
-        accel_profile = "flat",
+        sensitivity = -0.3,
         numlock_by_default = true,
         touchpad = {
+            disable_while_typing = true,
             natural_scroll = true,
             scroll_factor = 0.2,
             clickfinger_behavior = true,

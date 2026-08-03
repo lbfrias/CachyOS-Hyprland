@@ -8,6 +8,8 @@
         "width": 0,
         "margin": 0,
         "reload_style_on_change": true,
+        "on-sigusr1": "noop",
+        "on-sigusr2": "noop",
         "modules-center": [
             "hyprland/workspaces",
             "hyprland/workspaces#special",
@@ -22,6 +24,7 @@
             "format": "{name}",
             "active-only": false,
             "all-outputs": false,
+            "sort-by": "id",
             "persistent-workspaces": {
                 "DP-1": [
                     1,2,3
@@ -32,21 +35,22 @@
                 "DP-3": [
                     "name:homeassistant"
                 ]
-            }
+            },
+            "on-click": "hyprctl eval 'hl.dispatch(hl.dsp.focus({ workspace = {name} }))'"
+
         },
         "hyprland/workspaces#special": {
             "format": "{icon}",
             "format-icons": {
-                "default": "",
                 "spotify": "",
                 "steam": "",
                 "game": "󰊴"
             },
-            "active-only": false,
-            "all-outputs": false,
+            "active-only": true,
+            "all-outputs": true,
             "show-special": true,
             "ignore-workspaces": [
-                "\\d+"
+                "^(chat|homeassistant|\\d)$"
             ]
         },
         "clock": {
@@ -123,6 +127,9 @@
         "width": 0,
         "margin": 0,
         "reload_style_on_change": true,
+        "start_hidden": true,
+        "on-sigusr1": "show",
+        "on-sigusr2": "hide",
         "modules-center": [
             "hyprland/workspaces",
             "hyprland/workspaces#special",
@@ -146,6 +153,7 @@
             },
             "active-only": false,
             "all-outputs": false,
+            "sort-by": "id",
             "persistent-workspaces": {
                 "DP-1": [
                     1
@@ -226,6 +234,6 @@
                 "lock": "hyprlock",
                 "hibernate": "systemctl hibernate"
             }
-        },
+        }
     }
 ]
