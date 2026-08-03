@@ -16,7 +16,7 @@ wr({ match = { class = "^(python3)$", title = "^(.*HP Device Manager.*)$" }, flo
 
 -- Set opacity rules
 wr({ match = { class = "^(FFPWA.*)$" }, opacity = 0.85 })
-wr({ match = { class = "^(kitty)$" }, opacity = 0.75 })
+wr({ match = { class = "^(kitty)$" }, opacity = 0.75, scroll_touchpad = 0.4 })
 wr({ match = { class = "^(FFPWA.*)$", initial_title = "^(Jellyfin)$" }, opacity = 1 })
 wr({ match = { class = "^(pcmanfm)$" }, opacity = 0.7 })
 wr({ match = { class = "^(discord)$" }, opacity = 0.85 })
@@ -24,7 +24,7 @@ wr({ match = { class = "^(org.telegram.desktop)$" }, opacity = 0.85 })
 wr({ match = { class = "^(code)$" }, opacity = 0.9 })
 
 -- General window rules
-wr({ match = { class = "^(brave-browser)$" }, scroll_touchpad = 0.10 })
+wr({ match = { class = "^(brave-browser)$" }, scroll_touchpad = 0.1 })
 wr({ match = { initial_class = "^(spotify)$" }, opacity = 0.7, no_initial_focus = true, suppress_event = "activatefocus", workspace = "special:spotify" })
 wr({ match = { class = "^(kitty)$", title = "^(bluetui)$" }, float = true, size = { 540, 343 }, move = "100%-w-20 4%", animation = "slide down" })
 wr({ match = { class = "^(blueman-manager)$" }, float = true, size = { 540, 343 }, move = "100%-w-20 4%", animation = "slide down" })
