@@ -79,11 +79,12 @@ hl.config({
         enable_swallow = true,
         swallow_regex = "^(kitty|pcmanfm)$",
         focus_on_activate = true,
-        vrr = 2
+        vrr = 3
+
     },
 
     render = {
-        direct_scanout = true
+        direct_scanout = 2,
     },
 
     dwindle = {
