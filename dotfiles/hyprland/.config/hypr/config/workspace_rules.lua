@@ -31,7 +31,7 @@ local gaps_without_bar = {
     }
 }
 
-local enable_secondary_waybar = false
+local manual_secondary_waybar = false
 
 local function get_workspaces_on_monitor(monitor_name)
     local workspaces = {}
@@ -54,58 +54,62 @@ local function set_gaps_for_monitor(monitor_name, gaps)
     end
 end
 
-local function has_active_fullscreen_on_main()
+local function is_main_waybar_hidden()
+    local active_ws = hl.get_active_workspace()
+    if active_ws.monitor.name ~= MAIN_MONITOR then
+        return false
+    end
     for _, w in ipairs(hl.get_windows()) do
-        if w.fullscreen > 0 and w.workspace.active and w.monitor.name == MAIN_MONITOR then
+        if w.fullscreen > 0 and w.workspace.id == active_ws.id then
             return true
         end
     end
     return false
 end
 
-local function update_secondary_monitors()
-    if has_active_fullscreen_on_main() or enable_secondary_waybar then
-        for _, m in ipairs(hl.get_monitors()) do
-            if m.name ~= MAIN_MONITOR then
-                set_gaps_for_monitor(m.name, gaps_with_bar)
-            end
-        end
-        hl.exec_cmd("pkill -SIGUSR1 waybar")
-    else
-        for _, m in ipairs(hl.get_monitors()) do
-            if m.name ~= MAIN_MONITOR then
-                set_gaps_for_monitor(m.name, gaps_without_bar)
-            end
-        end
-        hl.exec_cmd("pkill -SIGUSR2 waybar")
-    end
-end
-
-local default_gaps = function()
+local function show_secondary_waybars()
     for _, m in ipairs(hl.get_monitors()) do
-        if m.name == MAIN_MONITOR then
+        if m.name ~= MAIN_MONITOR then
             set_gaps_for_monitor(m.name, gaps_with_bar)
-        else
-            update_secondary_monitors()
         end
+    end
+    hl.exec_cmd("pkill -SIGUSR1 waybar")
+end
+
+local function hide_secondary_waybars()
+    for _, m in ipairs(hl.get_monitors()) do
+        if m.name ~= MAIN_MONITOR then
+            set_gaps_for_monitor(m.name, gaps_without_bar)
+        end
+    end
+    hl.exec_cmd("pkill -SIGUSR2 waybar")
+end
+
+local function update_secondary_waybars()
+    if manual_secondary_waybar or is_main_waybar_hidden() then
+        show_secondary_waybars()
+    else
+        hide_secondary_waybars()
     end
 end
 
-hl.on("hyprland.start", function()
-    default_gaps()
-end)
+local function init_gaps()
+    set_gaps_for_monitor(MAIN_MONITOR, gaps_with_bar)
+    update_secondary_waybars()
+end
 
-hl.on("config.reloaded", function()
-    default_gaps()
-end)
+hl.on("hyprland.start", init_gaps)
+hl.on("config.reloaded", init_gaps)
 
 hl.on("window.fullscreen", function(window)
     if window.monitor.name == MAIN_MONITOR then
-        if window.fullscreen == 0 and enable_secondary_waybar then
-            SecondaryWaybar.toggle()
-        else
-            update_secondary_monitors()
-        end
+        update_secondary_waybars()
+    end
+end)
+
+hl.on("workspace.active", function(workspace)
+    if workspace.monitor.name == MAIN_MONITOR then
+        update_secondary_waybars()
     end
 end)
 
@@ -117,7 +121,7 @@ end)
 
 SecondaryWaybar = {
     toggle = function()
-        enable_secondary_waybar = not enable_secondary_waybar
-        update_secondary_monitors()
+        manual_secondary_waybar = not manual_secondary_waybar
+        update_secondary_waybars()
     end
 }
