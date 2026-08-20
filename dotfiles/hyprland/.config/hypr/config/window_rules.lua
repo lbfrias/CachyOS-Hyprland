@@ -29,7 +29,7 @@ wr({ match = { initial_class = "^(spotify)$" }, opacity = 0.7, no_initial_focus 
 wr({ match = { class = "^(kitty)$", title = "^(bluetui)$" }, float = true, size = { 540, 343 }, move = "100%-w-20 4%", animation = "slide down" })
 wr({ match = { class = "^(blueman-manager)$" }, float = true, size = { 540, 343 }, move = "100%-w-20 4%", animation = "slide down" })
 wr({ match = { class = "^(nm-connection-editor)$" }, float = true, size = { 540, 343 }, move = "100%-w-20 4%", animation = "slide down" })
-wr({ match = { class = "^(dota2|steam_app.*|gamescope)$" }, workspace = "special:game", content = "game" })
+wr({ match = { class = "^(dota2|steam_app.*|gamescope)$" }, workspace = "name:game", content = "game" })
 wr({ match = { class = "^(brave-browser)$" }, content = "game" })
 wr({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true })
 wr({ match = { class = "^(steam)$" }, size = "100% 100%", workspace = "special:steam" })

@@ -21,7 +21,10 @@
             "custom/power",
         ],
         "hyprland/workspaces": {
-            "format": "{name}",
+            "format": "{icon}",
+            "format-icons": {
+                "game": "󰊴"
+            },
             "active-only": false,
             "all-outputs": false,
             "sort-by": "id",
@@ -44,13 +47,12 @@
             "format-icons": {
                 "spotify": "",
                 "steam": "",
-                "game": "󰊴"
             },
             "active-only": true,
             "all-outputs": true,
             "show-special": true,
             "ignore-workspaces": [
-                "^(chat|homeassistant|\\d)$"
+                "^(chat|homeassistant|game|\\d)$"
             ]
         },
         "clock": {
@@ -149,7 +151,7 @@
             "format": "{icon}",
             "format-icons": {
                 "homeassistant": "󰟐",
-                "chat": "󰭻",
+                "chat": "󰭻"
             },
             "active-only": false,
             "all-outputs": false,
@@ -164,14 +166,13 @@
             "format": "{icon}",
             "format-icons": {
                 "spotify": "",
-                "steam": "",
-                "game": "󰊴"
+                "steam": ""
             },
             "active-only": true,
             "all-outputs": true,
             "show-special": true,
             "ignore-workspaces": [
-                "^(chat|homeassistant|\\d)$"
+                "^(chat|homeassistant|game|\\d)$"
             ]
         },
         "clock": {
