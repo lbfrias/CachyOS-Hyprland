@@ -60,8 +60,8 @@ hl.config({
     },
 
     binds = {
-        allow_workspace_cycles = 1,
-        workspace_back_and_forth = 1,
+        allow_workspace_cycles = true,
+        workspace_back_and_forth = true,
         workspace_center_on = 1,
         movefocus_cycles_fullscreen = true,
         window_direction_monitor_fallback = true
@@ -84,7 +84,7 @@ hl.config({
     },
 
     render = {
-        direct_scanout = 2 
+        direct_scanout = 0
     },
 
     dwindle = {
