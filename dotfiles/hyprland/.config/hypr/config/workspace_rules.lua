@@ -125,7 +125,7 @@ hl.on("workspace.active", function(workspace)
 end)
 
 hl.on("workspace.special_active", function(workspace)
-    if workspace and workspace.monitor.name == MAIN_MONITOR then
+    if workspace and workspace.monitor and workspace.monitor.name == MAIN_MONITOR then
         manual_override = nil
         update_secondary_waybars()
     elseif not workspace then
@@ -135,8 +135,11 @@ hl.on("workspace.special_active", function(workspace)
 end)
 
 hl.on("window.active", function(window, reason)
-    if not hl.get_active_workspace().is_empty and hl.get_active_monitor().name == MAIN_MONITOR then
-        set_gaps_for_monitor(MAIN_MONITOR, gaps_with_bar)
+    if window and hl.get_active_monitor().name == MAIN_MONITOR then
+        local active_ws = hl.get_active_workspace()
+        if active_ws and not active_ws.is_empty then
+            set_gaps_for_monitor(MAIN_MONITOR, gaps_with_bar)
+        end
     end
 end)
 
