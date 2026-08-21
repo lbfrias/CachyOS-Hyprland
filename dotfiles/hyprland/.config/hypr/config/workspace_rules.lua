@@ -124,8 +124,11 @@ hl.on("workspace.active", function(workspace)
     end
 end)
 
-hl.on("special.active", function(workspace, state)
-    if workspace.monitor.name == MAIN_MONITOR then
+hl.on("workspace.special_active", function(workspace)
+    if workspace and workspace.monitor.name == MAIN_MONITOR then
+        manual_override = nil
+        update_secondary_waybars()
+    elseif not workspace then
         manual_override = nil
         update_secondary_waybars()
     end
