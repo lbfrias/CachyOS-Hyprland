@@ -26,7 +26,6 @@ Requires CachyOS or Arch Linux. The script installs Ansible and Stow, then runs 
 | hyprland-preview-share-picker | Screen share picker for Hyprland |
 | mako | Notification daemon |
 | rofi | Application launcher |
-| sddm | Display manager theme |
 | solaar | Logitech device manager |
 | spotify | Spotify client config |
 | wallpapers | Desktop wallpapers |

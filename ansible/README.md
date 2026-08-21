@@ -21,19 +21,6 @@ Full system provisioning:
 ansible-playbook playbook.yaml --ask-become-pass
 ```
 
-### `dotfiles-playbook.yaml` — Stow Dotfiles Only
-
-Symlinks dotfiles using GNU Stow without installing packages. Use this to quickly deploy config files to a new location.
-
-Currently stows:
-- `hypr`, `mako`, `alacritty` → `$HOME`
-- `sddm` → `/etc`
-
-**Run:**
-```bash
-ansible-playbook dotfiles-playbook.yaml --ask-become-pass
-```
-
 ## Variables in playbook.yaml
 
 | Variable | Purpose |
@@ -58,7 +45,6 @@ Component setup tasks:
 |------|-------------------|
 | `silent_boot.yaml` | Quiet boot entries in systemd-boot |
 | `plymouth.yaml` | Plymouth boot splash |
-| `login_manager.yaml` | Login manager (SDDM) |
 | `hyprland.yaml` | Hyprland window manager |
 | `notification_daemon.yaml` | Notification daemon (mako) |
 | `overlay_bar.yaml` | Overlay bar (wob/avizo) |
@@ -67,7 +53,7 @@ Component setup tasks:
 | `zsh.yaml` | Zsh shell setup |
 | `git.yaml` | Git configuration |
 | `neovim.yaml` | Neovim editor |
-| `terminal.yaml` | Terminal emulator (alacritty) |
+| `terminal.yaml` | Terminal emulator (kitty) |
 | `gaming.yaml` | Gaming apps (Steam, Lutris, etc.) |
 | `docker.yaml` | Docker setup |
 | `spotify.yaml` | Spotify client |
