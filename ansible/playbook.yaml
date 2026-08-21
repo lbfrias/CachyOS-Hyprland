@@ -96,9 +96,6 @@
   - name: Setup Plymouth
     include_tasks: tasks/plymouth.yaml
 
-  # - name: Setup login manager
-  #   include_tasks: tasks/login_manager.yaml
-
   - name: Setup Hyprland
     include_tasks: tasks/hyprland.yaml
 
@@ -131,6 +128,9 @@
 
   - name: Setup docker
     include_tasks: tasks/docker.yaml
+
+  - name: Setup printer
+    include_tasks: tasks/printer.yaml
 
   - name: Setup Spotify
     include_tasks: tasks/spotify.yaml
