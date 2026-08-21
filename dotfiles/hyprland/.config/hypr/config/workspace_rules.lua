@@ -31,7 +31,9 @@ local gaps_without_bar = {
     }
 }
 
-local manual_secondary_waybar = false
+-- nil = automatic, true = force show, false = force hide
+local manual_override = nil
+local secondary_waybars_visible = false
 
 local function get_workspaces_on_monitor(monitor_name)
     local workspaces = {}
@@ -55,12 +57,8 @@ local function set_gaps_for_monitor(monitor_name, gaps)
 end
 
 local function is_main_waybar_hidden()
-    local active_ws = hl.get_active_workspace()
-    if active_ws.monitor.name ~= MAIN_MONITOR then
-        return false
-    end
     for _, w in ipairs(hl.get_windows()) do
-        if w.fullscreen > 0 and w.workspace.id == active_ws.id then
+        if w.fullscreen > 0 and w.monitor.name == MAIN_MONITOR and w.workspace.visible then
             return true
         end
     end
@@ -68,6 +66,8 @@ local function is_main_waybar_hidden()
 end
 
 local function show_secondary_waybars()
+    if secondary_waybars_visible then return end
+    secondary_waybars_visible = true
     for _, m in ipairs(hl.get_monitors()) do
         if m.name ~= MAIN_MONITOR then
             set_gaps_for_monitor(m.name, gaps_with_bar)
@@ -77,6 +77,8 @@ local function show_secondary_waybars()
 end
 
 local function hide_secondary_waybars()
+    if not secondary_waybars_visible then return end
+    secondary_waybars_visible = false
     for _, m in ipairs(hl.get_monitors()) do
         if m.name ~= MAIN_MONITOR then
             set_gaps_for_monitor(m.name, gaps_without_bar)
@@ -86,7 +88,14 @@ local function hide_secondary_waybars()
 end
 
 local function update_secondary_waybars()
-    if manual_secondary_waybar or is_main_waybar_hidden() then
+    local should_show
+    if manual_override ~= nil then
+        should_show = manual_override
+    else
+        should_show = is_main_waybar_hidden()
+    end
+
+    if should_show then
         show_secondary_waybars()
     else
         hide_secondary_waybars()
@@ -103,12 +112,21 @@ hl.on("config.reloaded", init_gaps)
 
 hl.on("window.fullscreen", function(window)
     if window.monitor.name == MAIN_MONITOR then
+        manual_override = nil
         update_secondary_waybars()
     end
 end)
 
 hl.on("workspace.active", function(workspace)
     if workspace.monitor.name == MAIN_MONITOR then
+        manual_override = nil
+        update_secondary_waybars()
+    end
+end)
+
+hl.on("special.active", function(workspace, state)
+    if workspace.monitor.name == MAIN_MONITOR then
+        manual_override = nil
         update_secondary_waybars()
     end
 end)
@@ -121,7 +139,11 @@ end)
 
 SecondaryWaybar = {
     toggle = function()
-        manual_secondary_waybar = not manual_secondary_waybar
+        if manual_override == nil then
+            manual_override = not secondary_waybars_visible
+        else
+            manual_override = not manual_override
+        end
         update_secondary_waybars()
     end
 }
