@@ -133,7 +133,7 @@ local gaps_with_bar    = {
 local main_gaps_with_bar = {
     gaps_in = 10,
     gaps_out = {
-        top = 10,
+        top = 5,
         bottom = 20,
         left = 25,
         right = 25
@@ -166,8 +166,9 @@ end
 local function set_gaps_for_monitor(monitor_name, gaps)
     for _, ws_name in ipairs(get_workspaces_on_monitor(monitor_name)) do
         if not ws_name:match("^special:") then
+            local selector = ws_name:match("^%d+$") and ws_name or "name:" .. ws_name
             hl.workspace_rule({
-                workspace = "name:" .. ws_name,
+                workspace = selector,
                 gaps_in   = gaps.gaps_in,
                 gaps_out  = gaps.gaps_out,
             })
