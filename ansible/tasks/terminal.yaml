@@ -11,7 +11,7 @@
     package: kitty
 
 - name: Install xdg-terminal-exec to be able to set default terminal
-  include_tasks: tasks/install_aur.yaml
+  include_tasks: tasks/install_official.yaml
   vars:
     package: xdg-terminal-exec
 

@@ -3,8 +3,8 @@
   loop:
   - cups
   - hplip
-  - pyqt5
-  - python-qt5-dbus
+  - python-pyqt5
+  - python-dbus
   - sane
   loop_control:
     loop_var: package
@@ -19,4 +19,4 @@
     name: cups
     state: started
     enabled: true
-  become: cups
+  become: true

@@ -39,7 +39,7 @@ hl.config({
     input = {
         follow_mouse = 2,
         float_switch_override_focus = 0,
-        sensitivity = -0.3,
+        sensitivity = 1,
         numlock_by_default = true,
         touchpad = {
             disable_while_typing = true,
@@ -79,21 +79,20 @@ hl.config({
         enable_swallow = true,
         swallow_regex = "^(kitty|pcmanfm)$",
         focus_on_activate = true,
-        vrr = 3
+        vrr = 0
 
     },
 
     render = {
-        direct_scanout = 0
+        direct_scanout = 0,
+        cm_auto_hdr = 0
     },
 
     dwindle = {
-        special_scale_factor = 0.8,
         preserve_split = true
     },
 
     master = {
         new_status = "master",
-        special_scale_factor = 0.8
     }
 })
