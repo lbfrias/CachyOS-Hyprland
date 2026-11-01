@@ -92,3 +92,74 @@ hl.layout.register("vertical_chat", {
         end
     end,
 })
+
+hl.layout.register("steam", {
+    recalculate = function(ctx)
+        local main_target = nil
+        local friends_target = nil
+
+        for _, target in ipairs(ctx.targets) do
+            if target.window then
+                local class = string.lower(target.window.class or "")
+                local initial_title = string.lower(target.window.initial_title or "")
+
+                if class == "steam" and initial_title == "steam" then
+                    main_target = target
+                elseif class == "steam" and initial_title == "friends list" then
+                    friends_target = target
+                end
+            end
+        end
+
+        local area = ctx.area
+        if main_target and friends_target then
+            if area.h > area.w then
+                local max_friends_height = math.floor(area.h * 0.4)
+                local min_friends_height = math.min(360, max_friends_height)
+                local friends_height = math.min(
+                    max_friends_height,
+                    math.max(math.floor(area.h * 0.2), min_friends_height)
+                )
+                local main_height = area.h - friends_height
+
+                main_target:place({
+                    x = area.x,
+                    y = area.y,
+                    w = area.w,
+                    h = main_height
+                })
+                friends_target:place({
+                    x = area.x,
+                    y = area.y + main_height,
+                    w = area.w,
+                    h = friends_height
+                })
+            else
+                local max_friends_width = math.floor(area.w * 0.4)
+                local min_friends_width = math.min(360, max_friends_width)
+                local friends_width = math.min(
+                    max_friends_width,
+                    math.max(math.floor(area.w * 0.15), min_friends_width)
+                )
+                local main_width = area.w - friends_width
+
+                main_target:place({
+                    x = area.x,
+                    y = area.y,
+                    w = main_width,
+                    h = area.h
+                })
+                friends_target:place({
+                    x = area.x + main_width,
+                    y = area.y,
+                    w = friends_width,
+                    h = area.h
+                })
+            end
+        elseif main_target then
+            main_target:place(area)
+        elseif friends_target then
+            friends_target:place(area)
+        end
+    end,
+})

@@ -49,7 +49,7 @@ hl.bind("XF86AudioPlay", cmd([[playerctl play-pause]]), { description = "Play/Pa
 hl.bind("XF86AudioNext", cmd([[playerctl next]]), { description = "Next track" })
 hl.bind("XF86AudioPrev", cmd([[playerctl previous]]), { description = "Previous track" })
 
----------- Brightness Control ----------
+---------- Monitor Control ----------
 
 hl.bind("XF86MonBrightnessUp", cmd(defaults.brightnessScript .. [[ up 5 6 | cat > ]] .. defaults.wobSocket), { description = "Increase monitor ID 6 brightness by 5%" })
 hl.bind("XF86MonBrightnessDown", cmd(defaults.brightnessScript .. [[ down 5 6 | cat > ]] .. defaults.wobSocket), { description = "Decrease monitor ID 6 brightness by 5%" })
@@ -57,6 +57,12 @@ hl.bind("CTRL + XF86MonBrightnessUp", cmd(defaults.brightnessScript .. [[ up 5 8
 hl.bind("CTRL + XF86MonBrightnessDown", cmd(defaults.brightnessScript .. [[ down 5 8 | cat > ]] .. defaults.wobSocket), { description = "Decrease monitor ID 8 brightness by 5%" })
 hl.bind("ALT + XF86MonBrightnessUp", cmd(defaults.brightnessScript .. [[ up 5 7 | cat > ]] .. defaults.wobSocket), { description = "Increase monitor ID 7 brightness by 5%" })
 hl.bind("ALT + XF86MonBrightnessDown", cmd(defaults.brightnessScript .. [[ down 5 7 | cat > ]] .. defaults.wobSocket), { description = "Decrease monitor ID 7 brightness by 5%" })
+hl.bind("CTRL + SUPER + XF86AudioMute", function()
+    hl.timer(function()
+        hl.dispatch(hl.dsp.dpms({ monitor = "1", action = "toggle" }))
+        hl.dispatch(hl.dsp.dpms({ monitor = "2", action = "toggle" }))
+    end, {timeout = 500, type = "oneshot"})
+end, { description = "Toggle movie mode (Turn off side monitors)"})
 
 ---------- Other System Control ----------
 hl.bind("SUPER + L", cmd("hyprlock"), { description = "Locks the screen" })
@@ -68,7 +74,9 @@ hl.bind("SUPER + O", cmd("pkill -9 waybar; waybar"), { description = "Restarts w
 hl.bind("SUPER + mouse:272", dsp.window.drag(), { description = "Moves window in specified direction" })
 hl.bind("SUPER + mouse:273", dsp.window.resize(), { description = "Resizes window in specified direction" })
 hl.bind("SUPER + V", dsp.window.float({ action = "toggle" }), { description = "Toggle window float" })
-hl.bind("SUPER + F", dsp.window.fullscreen({ action = "toggle" }), { description = "Toggle window fullscreen" })
+-- hl.bind("SUPER + F", dsp.window.fullscreen({ action = "toggle" }), { description = "Toggle window fullscreen" })
+hl.bind("SUPER + F", dsp.window.fullscreen_state({ action = "toggle", internal = 2, client = 2 }), { description = "Toggle window fullscreen" })
+hl.bind("SUPER + CTRL + F", dsp.window.fullscreen_state({ action = "toggle", internal = 0, client = 2 }), { description = "Toggle window fullscreen" })
 hl.bind("SUPER + Q", dsp.window.close(), { description = "Close window" })
 hl.bind("SUPER + left", dsp.focus({ direction = "left" }), { description = "Move focus to the left" })
 hl.bind("SUPER + right", dsp.focus({ direction = "right" }), { description = "Move focus to the right" })
