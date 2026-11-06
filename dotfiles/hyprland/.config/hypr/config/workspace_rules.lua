@@ -93,32 +93,44 @@ local MAIN_FRIENDS_SIZE = {
     height = 1060,
 }
 
-local function sync_steam_friends_window()
+local function sync_steam_windows()
     for _, window in ipairs(hl.get_windows()) do
-        if string.lower(window.class or "") == "steam"
-            and string.lower(window.initial_title or "") == "friends list"
-            and window.monitor then
-            local should_float = window.monitor.name ~= MAIN_MONITOR
-            local is_floating = window.floating
-
-            if should_float ~= is_floating then
-                hl.dispatch(hl.dsp.window.float({
+        if string.lower(window.class or "") == "steam" then
+            if window.workspace and window.workspace.name ~= "special:steam" then
+                hl.dispatch(hl.dsp.window.move({
                     window = window,
-                    action = should_float and "set" or "unset",
+                    workspace = "special:steam",
+                    follow = false,
                 }))
             end
 
-            if should_float then
-                hl.dispatch(hl.dsp.window.resize({
-                    window = window,
-                    x = MAIN_FRIENDS_SIZE.width,
-                    y = MAIN_FRIENDS_SIZE.height,
-                    relative = false,
-                }))
-                hl.dispatch(hl.dsp.window.center({ window = window }))
+            if string.lower(window.initial_title or "") == "friends list" and window.monitor then
+                local should_float = window.monitor.name ~= MAIN_MONITOR
+                local is_floating = window.floating
+
+                if should_float ~= is_floating then
+                    hl.dispatch(hl.dsp.window.float({
+                        window = window,
+                        action = should_float and "set" or "unset",
+                    }))
+                end
+
+                if should_float then
+                    hl.dispatch(hl.dsp.window.resize({
+                        window = window,
+                        x = MAIN_FRIENDS_SIZE.width,
+                        y = MAIN_FRIENDS_SIZE.height,
+                        relative = false,
+                    }))
+                    hl.dispatch(hl.dsp.window.center({ window = window }))
+                end
             end
         end
     end
+end
+
+local function schedule_steam_windows_sync()
+    hl.timer(sync_steam_windows, { timeout = 100, type = "oneshot" })
 end
 
 local gaps_with_bar    = {
@@ -225,7 +237,8 @@ end
 local function init_gaps()
     set_gaps_for_monitor(MAIN_MONITOR, main_gaps_with_bar)
     apply_special_workspace_gaps()
-    sync_steam_friends_window()
+    sync_steam_windows()
+    schedule_steam_windows_sync()
     update_secondary_waybars()
 end
 
@@ -248,7 +261,7 @@ end)
 
 hl.on("workspace.special_active", function(workspace)
     apply_special_workspace_gaps()
-    sync_steam_friends_window()
+    sync_steam_windows()
     if workspace and workspace.monitor and workspace.monitor.name == MAIN_MONITOR then
         manual_override = nil
         update_secondary_waybars()
@@ -258,10 +271,11 @@ hl.on("workspace.special_active", function(workspace)
     end
 end)
 
-hl.on("window.open", sync_steam_friends_window)
-hl.on("window.move_to_workspace", sync_steam_friends_window)
+hl.on("window.open", schedule_steam_windows_sync)
+hl.on("window.move_to_workspace", schedule_steam_windows_sync)
 
 hl.on("window.active", function(window, reason)
+    schedule_steam_windows_sync()
     if window and hl.get_active_monitor().name == MAIN_MONITOR then
         local active_ws = hl.get_active_workspace()
         if active_ws and not active_ws.is_empty then
